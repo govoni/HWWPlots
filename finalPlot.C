@@ -29,10 +29,13 @@ finalPlot (int nsel             = 0,
   gInterpreter->ExecuteMacro("GoodStyle.C");
   gROOT->LoadMacro("StandardPlot.C");
 
+  cout << "reading " << plotName << endl ;
   TFile* file = new TFile(plotName, "read");
 
   //PG prepare the object that is making the plots
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+  cout << "setting up the plot object " << endl ;
 
   StandardPlot myPlot;
   myPlot.setLumi(lumi);
@@ -53,6 +56,8 @@ finalPlot (int nsel             = 0,
   //PG get the bkg histograms from the file
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
+  cout << "getting histograms " << endl ;
+
   TH1F* hWW     = (TH1F*) file->Get ("WW");
   TH1F* hZJets  = (TH1F*) file->Get ("DY+jets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
@@ -62,21 +67,21 @@ finalPlot (int nsel             = 0,
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
   double scale = 1;
-  hWW	->Scale(scale);
-  hZJets->Scale(scale);
-  hTop  ->Scale(scale);
-  hVV	->Scale(scale);
-  hWJets->Scale(scale);
-  hWg   ->Scale(scale);
-  hWgs  ->Scale(scale);
+  if (hWW)    hWW    ->Scale(scale);
+  if (hZJets) hZJets->Scale(scale);
+  if (hTop)   hTop  ->Scale(scale);
+  if (hVV)    hVV    ->Scale(scale);
+  if (hWJets) hWJets->Scale(scale);
+  if (hWg)    hWg   ->Scale(scale);
+  if (hWgs)   hWgs  ->Scale(scale);
 
   TH1F* hggH   = (TH1F*) file->Get("ggH");
   TH1F* hqqH   = (TH1F*) file->Get("qqH");
   TH1F* hVH    = (TH1F*) file->Get("VH");
 
-  hggH->Scale (scale * signalZoom);
-  hqqH->Scale (scale * signalZoom);
-  hVH->Scale (scale * signalZoom);
+  if (hggH) hggH->Scale (scale * signalZoom);
+  if (hqqH) hqqH->Scale (scale * signalZoom);
+  if (hVH)  hVH->Scale  (scale * signalZoom);
 
   TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
   if (hqqH != 0) hHWW->Add (hqqH) ;
@@ -86,12 +91,14 @@ finalPlot (int nsel             = 0,
   //PG according to the channel
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
+  cout << "assigning histos to the plotting object" << endl ;
+
   // nsel == 1 means HWW analysis
   if(nsel == 0 || nsel == 1){
     if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
     if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
     if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
-    if(hVV->GetSumOfWeights()	 > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
+    if(hVV->GetSumOfWeights()     > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
     if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
     if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
     if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
@@ -100,6 +107,8 @@ finalPlot (int nsel             = 0,
   }
   // nsel == 2 means VH > 3 leptons
   else if(nsel == 2 || nsel == 3) {
+    cout << "nsel = " << nsel << ", main analysis plots" << endl ;
+
     TH1F* hZGamma = (TH1F*)file->Get("histo6");
     if(hZGamma->GetSumOfWeights() > 0) myPlot.setMCHist(iZGamma, (TH1F*)hZGamma->Clone("hZGamma"));
 
@@ -132,7 +141,11 @@ finalPlot (int nsel             = 0,
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
+  cout << "getting data" << endl ;
+
   TH1F *hData = (TH1F*)file->Get("Data"); 
+
+  cout << "passing data to the plotting object" << endl ;
   myPlot.setDataHist((TH1F*)hData->Clone("data"));
 
   printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
@@ -223,19 +236,19 @@ finalPlot (int nsel             = 0,
       Float_t d  = 1.0;
       Float_t sd = 1.0;      
       if(a > 0 && b >0){
-      	d  = a / b;
-      	sd = sqrt(sa/a*sa/a+sb/b*sb/b)*d;
-      	//d  = a - b;
-      	//sd = sqrt(sa*sa+sb*sb);
+          d  = a / b;
+          sd = sqrt(sa/a*sa/a+sb/b*sb/b)*d;
+          //d  = a - b;
+          //sd = sqrt(sa*sa+sb*sb);
 
         printf("data(%d): %f mc: %f -> data/mc = %f\n",i,a,b,a/b);
-      	diff->SetBinContent(i, d);
-      	diff->SetBinError  (i, sd);
+          diff->SetBinContent(i, d);
+          diff->SetBinError  (i, sd);
       } else {
-      	diff->SetBinContent(i, 1.0);
-      	diff->SetBinError  (i, 0.0);
-      	//diff->SetBinContent(i, 0.0);
-      	//diff->SetBinError  (i, 0.0);
+          diff->SetBinContent(i, 1.0);
+          diff->SetBinError  (i, 0.0);
+          //diff->SetBinContent(i, 0.0);
+          //diff->SetBinError  (i, 0.0);
       }
     }
     printf("data: %f mc: %f -> data/mc = %f\n",sum[0],sum[1],sum[0]/sum[1]);
@@ -250,7 +263,7 @@ finalPlot (int nsel             = 0,
     gStyle->SetOptStat(0);
 
     //TBox* tenPercentBox = new TBox(diff->GetXaxis()->GetXmin(), 0.90,
-    //			   diff->GetXaxis()->GetXmax(), 1.10);
+    //               diff->GetXaxis()->GetXmax(), 1.10);
 
     //tenPercentBox->SetFillColor(kAzure-9);
 
@@ -260,7 +273,7 @@ finalPlot (int nsel             = 0,
     AxisFonts((TAxis*)diff->GetYaxis(), "y", "data / MC");
 
     TLine* oneLine = new TLine(diff->GetXaxis()->GetXmin(), 0,
-			       diff->GetXaxis()->GetXmax(), 0);
+                   diff->GetXaxis()->GetXmax(), 0);
 
     oneLine->SetLineStyle(3);
     oneLine->SetLineWidth(3);
