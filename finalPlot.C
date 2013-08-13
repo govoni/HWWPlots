@@ -38,6 +38,7 @@ finalPlot (int nsel             = 0,
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
   myPlot.setSignalZoom (signalZoom) ;
+  myPlot.setMass (MassH) ;
   if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
   else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
   else if(lumi ==   24.4) myPlot.addLabel("#sqrt{s} = 7+8 TeV");
@@ -47,6 +48,7 @@ finalPlot (int nsel             = 0,
   else if(lumi ==  19.52) myPlot.addLabel("OSSF #sqrt{s} = 8 TeV");
   else                    myPlot.addLabel(""); 
   myPlot.setUnits(units);
+  myPlot.SetColorsAndLabels () ;
 
   //PG get the bkg histograms from the file
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -67,6 +69,24 @@ finalPlot (int nsel             = 0,
   hWJets->Scale(scale);
   hWg   ->Scale(scale);
   hWgs  ->Scale(scale);
+
+  TH1F* hggH   = (TH1F*) file->Get("ggH");
+  TH1F* hqqH   = (TH1F*) file->Get("qqH");
+  TH1F* hVH    = (TH1F*) file->Get("VH");
+
+  hggH->Scale (scale * signalZoom);
+  hqqH->Scale (scale * signalZoom);
+  hVH->Scale (scale * signalZoom);
+
+  TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
+  if (hHWW != 0) hHWW->Add (qqH) ;
+  if (hVH != 0)  hHWW->Add (hVH) ;
+
+  if(nsel != 1 && nsel != 3){
+    myPlot.setMCHist(iHWW, (TH1F*) hHWW->Clone("hHWW"));
+  }
+
+
 
   //PG assing the plots to the object making the plots,
   //PG according to the channel
@@ -110,20 +130,6 @@ finalPlot (int nsel             = 0,
 
   //PG get the signal histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-
-  TH1F* hggH   = (TH1F*) file->Get("ggH");
-  TH1F* hqqH   = (TH1F*) file->Get("qqH");
-  TH1F* hVH    = (TH1F*) file->Get("VH");
-
-  TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
-  if (hHWW != 0) hHWW->Add (qqH) ;
-  if (hVH != 0)  hHWW->Add (hVH) ;
-
-  hHWW->Scale(scale);
-  if(nsel != 1 && nsel != 3){
-    myPlot.setMCHist(iHWW, (TH1F*) hHWW->Clone("hHWW"));
-    myPlot._mass = MassH;
-  }
 
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 

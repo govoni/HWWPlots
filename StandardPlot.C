@@ -139,6 +139,72 @@ class StandardPlot {
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
+void SetColorsAndLabels ()
+  {
+    _sampleColor = new TColor [nSamples] ;
+    _sampleColor[iHWW    ] = kRed + 1 ;
+    _sampleColor[iWW     ] = kAzure - 9 ;
+    _sampleColor[iEM     ] = kYellow ;
+    _sampleColor[iZJets  ] = kGreen + 2 ;
+    _sampleColor[iTop    ] = kYellow ;
+    _sampleColor[iVV     ] = kAzure - 2 ;
+    _sampleColor[iWJets  ] = kGray + 1 ;
+    _sampleColor[iWZ     ] = kAzure-2 ;
+    _sampleColor[iZZ     ] = kAzure-9 ;
+    _sampleColor[iVVV    ] = kGray + 1 ;
+    _sampleColor[iFakes  ] = kGray + 1 ;
+    _sampleColor[iZGamma ] = kViolet - 9 ;
+    _sampleColor[iggH    ] = kRed + 1 ;
+    _sampleColor[iVBF    ] = kBlue + 1 ;
+    _sampleColor[iVH     ] = 635 ; // kRed + 3?
+    _sampleColor[iWgamma ] = kViolet + 1 ;
+    _sampleColor[iWgammaS] = kViolet + 1  ;
+  
+    _sampleLabel = new TString [nSamples] ;
+    TString higgsLabel ;
+    if (_signalZoom > 1) 
+      {
+        higgsLabel.Form ("%dxH#toW^{#pm}W^{#pm}",_signalZoom);
+        _sampleLabel[iHWW    ]= higgsLabel) ;
+        higgsLabel.Form ("%dxqqH#toW^{#pm}W^{#pm}",_signalZoom);
+        _sampleLabel[iVBF    ]= higgsLabel) ;
+        higgsLabel.Form ("%dxggH#toW^{#pm}W^{#pm}",_signalZoom);
+        _sampleLabel[iggH    ]= higgsLabel) ;
+        higgsLabel.Form ("%dxVH#toW^{#pm}W^{#pm}",_signalZoom);
+        _sampleLabel[iVH    ]= higgsLabel) ;
+      }
+    else                 
+      {
+        higgsLabel.Form ("xH#toW^{#pm}W^{#pm}");
+        _sampleLabel[iHWW  ]= higgsLabel) ;
+        higgsLabel.Form ("xqqH#toW^{#pm}W^{#pm}");
+        _sampleLabel[iVBF  ]= higgsLabel) ;
+        higgsLabel.Form ("xggH#toW^{#pm}W^{#pm}");
+        _sampleLabel[iggH  ]= higgsLabel) ;
+        higgsLabel.Form ("xVH#toW^{#pm}W^{#pm}");
+        _sampleLabel[iVH  ]= higgsLabel) ;
+      }
+
+    _sampleLabel[iWW    ] = " WW"           ) ;
+    _sampleLabel[iZJets ] = " DY+jets"      ) ;
+    _sampleLabel[iTop   ] = " top"          ) ;
+    _sampleLabel[iVV    ] = " WZ/ZZ/VVV"    ) ;
+    _sampleLabel[iWJets ] = " W+jets"       ) ;
+    _sampleLabel[iWZ    ] = " WZ"           ) ;
+    _sampleLabel[iZZ    ] = " ZZ"           ) ;
+    _sampleLabel[iVVV   ] = " VVV"          ) ;
+    _sampleLabel[iEM    ] = " WW/top/W+jets") ;
+    _sampleLabel[iZGamma] = " Z+#gamma"     ) ;
+    _sampleLabel[iFakes ] = " iFakes"       ) ;
+
+    return ;
+  
+  }
+
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
   void setDataHist (TH1F * h)                 { _data          = h;  } 
   void setHWWHist  (TH1F * h)                 { setMCHist (iHWW  ,h); } 
   void setWWHist   (TH1F * h)                 { setMCHist (iWW   ,h); } 
@@ -195,28 +261,9 @@ class StandardPlot {
   TH1* Draw (const int &rebin=1) 
     {
       //PG setup the colors for the histograms
-      Color_t _sampleColor[nSamples];
-      _sampleColor[iHWW    ] = kRed + 1 ;
-      _sampleColor[iWW     ] = kAzure - 9 ;
-      _sampleColor[iEM     ] = kYellow ;
-      _sampleColor[iZJets  ] = kGreen + 2 ;
-      _sampleColor[iTop    ] = kYellow ;
-      _sampleColor[iVV     ] = kAzure - 2 ;
-      _sampleColor[iWJets  ] = kGray + 1 ;
-      _sampleColor[iWZ     ] = kAzure-2 ;
-      _sampleColor[iZZ     ] = kAzure-9 ;
-      _sampleColor[iVVV    ] = kGray + 1 ;
-      _sampleColor[iFakes  ] = kGray + 1 ;
-      _sampleColor[iZGamma ] = kViolet - 9 ;
-      _sampleColor[iggH    ] = kRed + 1 ;
-      _sampleColor[iVBF    ] = kBlue + 1 ;
-      _sampleColor[iVH     ] = 635 ; // kRed + 3?
-      _sampleColor[iWgamma ] = kGray + 1 ;
-      _sampleColor[iWgammaS] = kGray + 1  ;
-    
-      //             _sampleColor[iWJets] = kViolet-9;
-      //             _sampleColor[iWJets] = kCyan;
-    
+
+
+
       //setUpStyle ();
       //if (!gPad) new TCanvas ();
     
@@ -365,37 +412,36 @@ class StandardPlot {
           }
       }
 
-      // total mess to get it nice, should be redone
-//      if    (_mass == 999) higgsLabel.Form (" W+#gamma^{*}");
-//      else if (_mass == 998) higgsLabel.Form (" Z+#gamma");
-//      else if (_mass == 997) higgsLabel.Form ("10xqqW^{#pm}W^{#pm}");
-//      else if (_mass !=   0) higgsLabel.Form (" m_{H}=%d",_mass);
-      TString higgsLabel = " HWW";
-      if (_signalZoom > 1) higgsLabel.Form ("%dxH#toW^{#pm}W^{#pm}",_signalZoom);
-      else                 higgsLabel.Form ("H#toW^{#pm}W^{#pm}");
-
-// FIXME finish signals
-// FIXME plot all signals
-// FIXME add the new bkgs to the list here below
-
-      //_signalZoom
-
+      //PG plotting the legend
+      //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+      
       size_t j=0;
+
+      //PG data
       if (_data         ) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _data,          " data",    "lp"); j++; }
-      if    (_hist[iHWW   ] && isHWWOverlaid) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW   ], higgsLabel, "f" ); j++; }
-      else if (_hist[iHWW   ])                { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW   ], higgsLabel, "l" ); j++; }
-      if (_hist[iWW    ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWW    ], " WW",      "f" ); j++; }
-      if (_hist[iZJets ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZJets ], " DY+jets", "f" ); j++; }
-      if (_hist[iTop   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iTop   ], " top",     "f" ); j++; }
-      if (_hist[iVV    ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVV    ], " WZ/ZZ/VVV",   "f" ); j++; }
-      if (_hist[iWJets ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWJets ], " W+jets",  "f" ); j++; }
-      if (_hist[iWZ    ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWZ    ], " WZ",      "f" ); j++; }
-      if (_hist[iZZ    ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZZ    ], " ZZ",      "f" ); j++; }
-      if (_hist[iVVV   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVVV   ], " VVV",     "f" ); j++; }
-      if (_hist[iEM    ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iEM    ], " WW/top/W+jets",  "f" ); j++; }
-      if (_hist[iZGamma]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZGamma], " Z+#gamma",   "f" ); j++; }
-      //if (_hist[iFakes ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iFakes ], " top & V+jets",   "f" ); j++; }
-      if (_hist[iFakes ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iFakes ], " fakes",   "f" ); j++; }
+
+      //PG signals
+      TString signalLegendRepr = "f" ;
+      if (!isHWWOverlaid) signalLegendRepr = "l" ;      
+      if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; }
+      if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; }
+      if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; }
+      if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; }
+
+      //PG backgrounds
+      if (_hist[iWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWW      ], _sampleLabel [iWW      ], "f" ); j++; }
+      if (_hist[iZJets   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZJets   ], _sampleLabel [iZJets   ], "f" ); j++; }
+      if (_hist[iTop     ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iTop     ], _sampleLabel [iTop     ], "f" ); j++; }
+      if (_hist[iVV      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVV      ], _sampleLabel [iVV      ], "f" ); j++; }
+      if (_hist[iWJets   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWJets   ], _sampleLabel [iWJets   ], "f" ); j++; }
+      if (_hist[iWZ      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWZ      ], _sampleLabel [iWZ      ], "f" ); j++; }
+      if (_hist[iZZ      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZZ      ], _sampleLabel [iZZ      ], "f" ); j++; }
+      if (_hist[iVVV     ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVVV     ], _sampleLabel [iVVV     ], "f" ); j++; }
+      if (_hist[iEM      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iEM      ], _sampleLabel [iEM      ], "f" ); j++; }
+      if (_hist[iZGamma  ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZGamma  ], _sampleLabel [iZGamma  ], "f" ); j++; }
+      if (_hist[iFakes   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iFakes   ], _sampleLabel [iFakes   ], "f" ); j++; }
+      if (_hist[iWgamma  ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgamma  ], _sampleLabel [iWgamma  ], "f" ); j++; }
+      if (_hist[iWgammaS ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgammaS ], _sampleLabel [iWgammaS ], "f" ); j++; }
 
       TLatex* luminosity = new TLatex (0.9, 0.8, TString::Format ("L = %.1f fb^{-1}",_lumi));
       luminosity->SetNDC ();
@@ -434,10 +480,12 @@ class StandardPlot {
         float    _lumi;
         TString  _xLabel;
         TString  _units;
-        TLatex * _extraLabel;
+        TLatex * _extraLabel; 
         bool     _breakdown;
         int      _mass;
         int      _signalZoom; // PG signal scale factor for plotting and legenda writing
+        TString * _sampleLabel ;
+        TColor * _sampleColor ;
 
 
 };
