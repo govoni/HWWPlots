@@ -205,7 +205,7 @@ void SetColorsAndLabels ()
     _sampleLabel[iVVV   ] = " VVV"           ;
     _sampleLabel[iEM    ] = " WW/top/W+jets" ;
     _sampleLabel[iZGamma] = " Z+#gamma"      ;
-    _sampleLabel[iFakes ] = " iFakes"        ;
+    _sampleLabel[iFakes ] = " fakes"         ;
 
     return ;
   
@@ -373,6 +373,7 @@ void SetColorsAndLabels ()
       //PG draw signal samples
       for (int i = 0 ; i < nSamples; i++) 
         {
+          if (_sigHist[i]) _hist[i]->Rebin(rebin);
           if (_sigHist[i]) _hist[i]->Draw ("hist,same") ;
         } //PG draw signal samples
     
