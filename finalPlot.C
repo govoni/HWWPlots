@@ -132,12 +132,12 @@ finalPlot (int nsel             = 0,
   }
   else if (nsel == 5) {
     cout << "nsel = " << nsel << ", VBF analysis plots" << endl ;
-    myPlot.setMCHist (iZJets, (TH1F*) hWW   ->Clone ("hWW"));
-    myPlot.setMCHist (iVVV,   (TH1F*) hZJets->Clone ("hZJets"));
-    myPlot.setMCHist (iWZ,    (TH1F*) hTop  ->Clone ("hTop"));
+    myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
-    myPlot.setMCHist (iggH,   (TH1F*) hWJets->Clone ("hggH"));
-    myPlot.setMCHist (iVBF,   (TH1F*) hWJets->Clone ("hVBF"));
+    myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
+    myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
+    myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
   }
 
   //PG get the data histogram
@@ -152,12 +152,6 @@ finalPlot (int nsel             = 0,
 
   cout << "printout" << endl ;
 
-//  printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
-//      hWW->GetSumOfWeights(),hZJets->GetSumOfWeights(),hTop->GetSumOfWeights(),
-//      hVV->GetSumOfWeights(),hWJets->GetSumOfWeights(),
-//      hWW->GetSumOfWeights()+hZJets->GetSumOfWeights()+hTop->GetSumOfWeights()+
-//      hVV->GetSumOfWeights()+hWJets->GetSumOfWeights(),
-//      hData->GetSumOfWeights(),hHWW->GetSumOfWeights());
   TCanvas* c1 = new TCanvas("c1", "c1");
 
   if(isLogY == true) c1->SetLogy();

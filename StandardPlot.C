@@ -174,24 +174,24 @@ void SetColorsAndLabels ()
     TString higgsLabel ;
     if (_signalZoom > 1) 
       {
-        higgsLabel.Form ("%dxH#toW^{#pm}W^{#pm}",_signalZoom);
+        higgsLabel.Form ("%d x HWW",_signalZoom);
         _sampleLabel[iHWW    ] = higgsLabel ;
-        higgsLabel.Form ("%dxqqH#toW^{#pm}W^{#pm}",_signalZoom);
+        higgsLabel.Form ("%d x qqH",_signalZoom);
         _sampleLabel[iVBF    ] = higgsLabel ;
-        higgsLabel.Form ("%dxggH#toW^{#pm}W^{#pm}",_signalZoom);
+        higgsLabel.Form ("%d x ggH",_signalZoom);
         _sampleLabel[iggH    ] = higgsLabel ;
-        higgsLabel.Form ("%dxVH#toW^{#pm}W^{#pm}",_signalZoom);
+        higgsLabel.Form ("%d x VH",_signalZoom);
         _sampleLabel[iVH     ] = higgsLabel ;
       }
     else                 
       {
-        higgsLabel.Form ("xH#toW^{#pm}W^{#pm}");
+        higgsLabel.Form ("HWW");
         _sampleLabel[iHWW  ] = higgsLabel ;
-        higgsLabel.Form ("xqqH#toW^{#pm}W^{#pm}");
+        higgsLabel.Form ("qqH");
         _sampleLabel[iVBF  ] = higgsLabel ;
-        higgsLabel.Form ("xggH#toW^{#pm}W^{#pm}");
+        higgsLabel.Form ("ggH");
         _sampleLabel[iggH  ] = higgsLabel ;
-        higgsLabel.Form ("xVH#toW^{#pm}W^{#pm}");
+        higgsLabel.Form ("VH");
         _sampleLabel[iVH   ] = higgsLabel ;
       }
 
@@ -317,20 +317,15 @@ void SetColorsAndLabels ()
                 }
             }
             
-          cout << "here" << endl ;  
           cout << _sampleColor[i] << endl ;  
-          cout << "here" << endl ;  
           _hist[i]->Rebin (rebin);
           _hist[i]->SetLineColor (_sampleColor[i]);
     
           _hist[i]->SetFillColor (_sampleColor[i]);
           _hist[i]->SetFillStyle (1001);
-          cout << "here" << endl ;  
     
           hstack->Add (_hist[i]);
-          cout << "here" << endl ;  
           hSum->Add (_hist[i]);
-          cout << "here" << endl ;  
         } //PG fill the THStack
     
       cout << "before loop on signal samples" << endl ;
@@ -339,8 +334,10 @@ void SetColorsAndLabels ()
       for (int i=0; i<nSamples; i++) 
         {
           cout << "sample " << i << endl ;
-          if (_sigHist[i]) _hist[i]->SetLineWidth (3) ;
-          if (_sigHist[i]) _hist[i]->SetLineColor (_sampleColor[i]) ;
+          if (_sigHist[i] == 0 ) continue ;
+          _hist[i]->SetLineWidth (3) ;
+          _hist[i]->SetLineColor (_sampleColor[i]) ;
+          _hist[i]->SetFillStyle (0) ;          
           if (i == iVBF) _hist[i]->SetLineStyle (2) ;
         } //PG setup signal samples
     
@@ -372,6 +369,15 @@ void SetColorsAndLabels ()
     
       if (_hist[iHWW] && isHWWOverlaid == false) _hist[iHWW]->Draw ("hist,same");
     
+
+      //PG draw signal samples
+      for (int i = 0 ; i < nSamples; i++) 
+        {
+          if (_sigHist[i]) _hist[i]->Draw ("hist,same") ;
+        } //PG draw signal samples
+    
+
+
       if (_data) 
         {
           bool plotCorrectErrorBars = true;
