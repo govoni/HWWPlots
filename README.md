@@ -7,6 +7,19 @@ Usage example:
 .x finalPlot.C+(0,5,"E_{T}^{miss}","GeV","histo.root","histo_zhpresel_met",1,125,24.4)
 ```
 
+with the following arguments:
+
+- nsel : what type of plots
+- ReBin : rebinning
+- XTitle[300] : x axis title
+- units[300] : x axis units
+- plotName[300] : name of the plot
+- outputName[300] : name of the output file
+- isLogY : log y option
+- MassH : higgs mass
+- lumi : integrated lumi
+
+
 The input root file is expected to contain backgrounds with the following names:
 
 - WW      : WW bkg
