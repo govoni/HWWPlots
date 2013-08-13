@@ -1,4 +1,4 @@
-// .x finalPlot.C+(0,5,"E_{T}^{miss}","GeV","histo.root","histo_zhpresel_met",1,125,24.4)
+// .x finalPlot.C+(0,5,"E_{T}^{miss}","GeV","histo.root","histo_zhpresel_met",1,125,24.4, doDataMCRatio, signalZoom)
 
 #include "TROOT.h"
 #include "TInterpreter.h"
@@ -21,7 +21,10 @@ finalPlot (int nsel             = 0,
            char outputName[300] = "njets",
            bool isLogY          = false, 
            int MassH            = 160, 
-           double lumi          = 4.6) 
+           double lumi          = 4.6, 
+           bool doDataMCRatio   = true, 
+           int signalZoom       = 1
+  ) 
 {
   gInterpreter->ExecuteMacro("GoodStyle.C");
   gROOT->LoadMacro("StandardPlot.C");
@@ -51,13 +54,18 @@ finalPlot (int nsel             = 0,
   TH1F* hZJets  = (TH1F*) file->Get ("DYjets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
   TH1F* hVV     = (TH1F*) file->Get ("VV"); 
+  TH1F* hVVV    = (TH1F*) file->Get ("VVV"); 
   TH1F* hWJets  = (TH1F*) file->Get ("Wjets");
+  TH1F* hWg     = (TH1F*) file->Get ("Wg");
+  TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
   double scale = 1;
   hWW	->Scale(scale);
   hZJets->Scale(scale);
   hTop  ->Scale(scale);
   hVV	->Scale(scale);
   hWJets->Scale(scale);
+  hWg   ->Scale(scale);
+  hWgs  ->Scale(scale);
 
   //PG assing the plots to the object making the plots,
   //PG according to the channel
@@ -65,11 +73,13 @@ finalPlot (int nsel             = 0,
 
   // nsel == 1 means HWW analysis
   if(nsel == 0 || nsel == 1){
-    if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,    (TH1F*)hWW   ->Clone("hWW"));
-    if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets, (TH1F*)hZJets->Clone("hZJets"));
-    if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,   (TH1F*)hTop  ->Clone("hTop"));
-    if(hVV->GetSumOfWeights()	 > 0) myPlot.setMCHist(iVV,    (TH1F*)hVV   ->Clone("hVV")); 
-    if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets, (TH1F*)hWJets->Clone("hWJets"));
+    if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
+    if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
+    if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
+    if(hVV->GetSumOfWeights()	 > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
+    if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
+    if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
+    if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
   }
   // nsel == 2 means VH > 3 leptons
   else if(nsel == 2 || nsel == 3) {
@@ -89,6 +99,13 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist(iZZ,    (TH1F*)hVV   ->Clone("hVV")); 
     myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
   }
+  else if(nsel == 5) {
+//    myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
+//    myPlot.setMCHist(iVVV,   (TH1F*)hZJets->Clone("hZJets"));
+//    myPlot.setMCHist(iWZ,    (TH1F*)hTop  ->Clone("hTop"));
+//    myPlot.setMCHist(iZZ,    (TH1F*)hVV   ->Clone("hVV")); 
+//    myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
+  }
 
   //PG get the signal histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
@@ -107,15 +124,18 @@ finalPlot (int nsel             = 0,
     myPlot._mass = MassH;
   }
 
-  TH1F *hData = (TH1F*)file->Get("histo5");
+  //PG get the data histogram
+  //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+
+  TH1F *hData = (TH1F*)file->Get("CMSdata");
   myPlot.setDataHist((TH1F*)hData->Clone("data"));
 
   printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
       hWW->GetSumOfWeights(),hZJets->GetSumOfWeights(),hTop->GetSumOfWeights(),
-  	  hVV->GetSumOfWeights(),hWJets->GetSumOfWeights(),
-	  hWW->GetSumOfWeights()+hZJets->GetSumOfWeights()+hTop->GetSumOfWeights()+
-	  hVV->GetSumOfWeights()+hWJets->GetSumOfWeights(),
-	  hData->GetSumOfWeights(),hHWW->GetSumOfWeights());
+      hVV->GetSumOfWeights(),hWJets->GetSumOfWeights(),
+      hWW->GetSumOfWeights()+hZJets->GetSumOfWeights()+hTop->GetSumOfWeights()+
+      hVV->GetSumOfWeights()+hWJets->GetSumOfWeights(),
+      hData->GetSumOfWeights(),hHWW->GetSumOfWeights());
 /*
   TH1F* www    = (TH1F*)file->Get("histo0");
   www->Add( hZJets );
@@ -163,11 +183,18 @@ finalPlot (int nsel             = 0,
     dt->SetNameTitle("dt", "dt");
     mc->SetNameTitle("mc", "mc");
 
-    mc->Add(hZJets);
-    mc->Add(hTop  );
-    mc->Add(hVV   );
-    mc->Add(hWJets);
-    mc->Add(hHWW  );
+    //PG sum up all the bkg histos saved in myPlot object
+    for (int i = 0 ; i < nSamples ; ++i)
+      {
+        if (_bkgHist[i] != 0)
+          mc->Add(_bkgHist[i]) ;    
+      }
+  
+//    mc->Add(hZJets);
+//    mc->Add(hTop  );
+//    mc->Add(hVV   );
+//    mc->Add(hWJets);
+//    mc->Add(hHWW  );
 
     dt->Rebin(ReBin);
     mc->Rebin(ReBin);
