@@ -4,7 +4,7 @@ Tool to make the plots for the CMS HWW legacy paper
 Usage example:
 
 ```
-.x finalPlot.C+(0, 5, "E_{T}^{miss}", "GeV", "histo.root", "histo_zhpresel_met", 1, 125, 24.4, false, 1)
+.x finalPlot.C+(5, 1, "#Delta#eta_{jj}", "", "test.root", "delta_eta_jj", 0, 125, 24.4, 1, 20)
 ```
 
 with the following arguments:
@@ -24,18 +24,18 @@ with the following arguments:
 
 The input root file is expected to contain histograms with the following names:
 
-- WW      : WW bkg
-- DYjets  : DY + jets bkg
-- top     : top and ttbar bkg
-- VV      : VV excluding WW
-- VVV     : VV (excluding WW) and VVV (read for VH H > lvjj only)
-- Wjets   : W + jets
-- Wg      : Vgamma
-- Wgs     : Vgamma*
-- CMSdata : data
-- ggH     : gluon fusion singal
-- qqH     : vbf signal (if missing is not used)
-- VH      : VH signal (if missing is not used)
+- WW       : WW bkg
+- DY+jets  : DY + jets bkg
+- top      : top and ttbar bkg
+- VV       : VV excluding WW
+- VVV      : VV (excluding WW) and VVV (read for VH H > lvjj only)
+- W+jets   : W + jets
+- Wg       : Vgamma
+- Wgs      : Vgamma*
+- Data     : data
+- ggH      : gluon fusion singal
+- qqH      : vbf signal (if missing is not used)
+- VH       : VH signal (if missing is not used)
 
 The available analysis categories for the plotting are the following:
 
