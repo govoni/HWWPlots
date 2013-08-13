@@ -37,6 +37,7 @@ finalPlot (int nsel             = 0,
   StandardPlot myPlot;
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
+  myPlot.setSignalZoom (signalZoom) ;
   if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
   else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
   else if(lumi ==   24.4) myPlot.addLabel("#sqrt{s} = 7+8 TeV");
