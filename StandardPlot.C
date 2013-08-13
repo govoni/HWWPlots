@@ -114,7 +114,7 @@ void DrawLegend (Float_t x1,
 class StandardPlot {
 
     public: 
-        StandardPlot () { _hist.resize (nSamples, 0); _data = 0; _breakdown = false; _mass = 0; _signalZoom (1)}
+        StandardPlot () { _hist.resize (nSamples, 0); _data = 0; _breakdown = false; _mass = 0; _signalZoom = 1; }
 
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -141,7 +141,7 @@ class StandardPlot {
 
 void SetColorsAndLabels ()
   {
-    _sampleColor = new TColor [nSamples] ;
+    _sampleColor = new Color_t [nSamples] ;
     _sampleColor[iHWW    ] = kRed + 1 ;
     _sampleColor[iWW     ] = kAzure - 9 ;
     _sampleColor[iEM     ] = kYellow ;
@@ -165,37 +165,37 @@ void SetColorsAndLabels ()
     if (_signalZoom > 1) 
       {
         higgsLabel.Form ("%dxH#toW^{#pm}W^{#pm}",_signalZoom);
-        _sampleLabel[iHWW    ]= higgsLabel) ;
+        _sampleLabel[iHWW    ] = higgsLabel ;
         higgsLabel.Form ("%dxqqH#toW^{#pm}W^{#pm}",_signalZoom);
-        _sampleLabel[iVBF    ]= higgsLabel) ;
+        _sampleLabel[iVBF    ] = higgsLabel ;
         higgsLabel.Form ("%dxggH#toW^{#pm}W^{#pm}",_signalZoom);
-        _sampleLabel[iggH    ]= higgsLabel) ;
+        _sampleLabel[iggH    ] = higgsLabel ;
         higgsLabel.Form ("%dxVH#toW^{#pm}W^{#pm}",_signalZoom);
-        _sampleLabel[iVH    ]= higgsLabel) ;
+        _sampleLabel[iVH     ] = higgsLabel ;
       }
     else                 
       {
         higgsLabel.Form ("xH#toW^{#pm}W^{#pm}");
-        _sampleLabel[iHWW  ]= higgsLabel) ;
+        _sampleLabel[iHWW  ] = higgsLabel ;
         higgsLabel.Form ("xqqH#toW^{#pm}W^{#pm}");
-        _sampleLabel[iVBF  ]= higgsLabel) ;
+        _sampleLabel[iVBF  ] = higgsLabel ;
         higgsLabel.Form ("xggH#toW^{#pm}W^{#pm}");
-        _sampleLabel[iggH  ]= higgsLabel) ;
+        _sampleLabel[iggH  ] = higgsLabel ;
         higgsLabel.Form ("xVH#toW^{#pm}W^{#pm}");
-        _sampleLabel[iVH  ]= higgsLabel) ;
+        _sampleLabel[iVH   ] = higgsLabel ;
       }
 
-    _sampleLabel[iWW    ] = " WW"           ) ;
-    _sampleLabel[iZJets ] = " DY+jets"      ) ;
-    _sampleLabel[iTop   ] = " top"          ) ;
-    _sampleLabel[iVV    ] = " WZ/ZZ/VVV"    ) ;
-    _sampleLabel[iWJets ] = " W+jets"       ) ;
-    _sampleLabel[iWZ    ] = " WZ"           ) ;
-    _sampleLabel[iZZ    ] = " ZZ"           ) ;
-    _sampleLabel[iVVV   ] = " VVV"          ) ;
-    _sampleLabel[iEM    ] = " WW/top/W+jets") ;
-    _sampleLabel[iZGamma] = " Z+#gamma"     ) ;
-    _sampleLabel[iFakes ] = " iFakes"       ) ;
+    _sampleLabel[iWW    ] = " WW"            ;
+    _sampleLabel[iZJets ] = " DY+jets"       ;
+    _sampleLabel[iTop   ] = " top"           ;
+    _sampleLabel[iVV    ] = " WZ/ZZ/VVV"     ;
+    _sampleLabel[iWJets ] = " W+jets"        ;
+    _sampleLabel[iWZ    ] = " WZ"            ;
+    _sampleLabel[iZZ    ] = " ZZ"            ;
+    _sampleLabel[iVVV   ] = " VVV"           ;
+    _sampleLabel[iEM    ] = " WW/top/W+jets" ;
+    _sampleLabel[iZGamma] = " Z+#gamma"      ;
+    _sampleLabel[iFakes ] = " iFakes"        ;
 
     return ;
   
@@ -260,10 +260,6 @@ void SetColorsAndLabels ()
 
   TH1* Draw (const int &rebin=1) 
     {
-      //PG setup the colors for the histograms
-
-
-
       //setUpStyle ();
       //if (!gPad) new TCanvas ();
     
@@ -451,7 +447,7 @@ void SetColorsAndLabels ()
       luminosity->Draw ("same");
       if (_extraLabel) _extraLabel->Draw ("same");
 
-      return hstack->GetHistogram ();
+      return hstack->GetHistogram () ;
     }
 
 
@@ -485,7 +481,7 @@ void SetColorsAndLabels ()
         int      _mass;
         int      _signalZoom; // PG signal scale factor for plotting and legenda writing
         TString * _sampleLabel ;
-        TColor * _sampleColor ;
+        Color_t * _sampleColor ;
 
 
 };

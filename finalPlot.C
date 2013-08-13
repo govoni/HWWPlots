@@ -54,11 +54,11 @@ finalPlot (int nsel             = 0,
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
   TH1F* hWW     = (TH1F*) file->Get ("WW");
-  TH1F* hZJets  = (TH1F*) file->Get ("DYjets");
+  TH1F* hZJets  = (TH1F*) file->Get ("DY+jets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
   TH1F* hVV     = (TH1F*) file->Get ("VV"); 
   TH1F* hVVV    = (TH1F*) file->Get ("VVV"); 
-  TH1F* hWJets  = (TH1F*) file->Get ("Wjets");
+  TH1F* hWJets  = (TH1F*) file->Get ("W+jets");
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
   double scale = 1;
@@ -79,14 +79,8 @@ finalPlot (int nsel             = 0,
   hVH->Scale (scale * signalZoom);
 
   TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
-  if (hHWW != 0) hHWW->Add (qqH) ;
+  if (hqqH != 0) hHWW->Add (hqqH) ;
   if (hVH != 0)  hHWW->Add (hVH) ;
-
-  if(nsel != 1 && nsel != 3){
-    myPlot.setMCHist(iHWW, (TH1F*) hHWW->Clone("hHWW"));
-  }
-
-
 
   //PG assing the plots to the object making the plots,
   //PG according to the channel
@@ -101,6 +95,8 @@ finalPlot (int nsel             = 0,
     if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
     if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
     if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
+    myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone("hHWW")) ;
+
   }
   // nsel == 2 means VH > 3 leptons
   else if(nsel == 2 || nsel == 3) {
@@ -112,6 +108,8 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist(iZZ,    (TH1F*)hTop  ->Clone("hTop"));
     myPlot.setMCHist(iWZ,    (TH1F*)hVV   ->Clone("hVV")); 
     myPlot.setMCHist(iFakes, (TH1F*)hWJets->Clone("hWJets"));
+    myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
+    
   }
   else if(nsel == 4) {
     myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
@@ -134,7 +132,7 @@ finalPlot (int nsel             = 0,
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
-  TH1F *hData = (TH1F*)file->Get("CMSdata");
+  TH1F *hData = (TH1F*)file->Get("Data"); 
   myPlot.setDataHist((TH1F*)hData->Clone("data"));
 
   printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
@@ -178,7 +176,6 @@ finalPlot (int nsel             = 0,
   sprintf(myOutputFile,"plots/%s.pdf",outputName);
   c1->SaveAs(myOutputFile);
 
-  bool doDataMCRatio = false;
   if(doDataMCRatio == true){
     // Data - MC
     //--------------------------------------------------------------------------
@@ -193,8 +190,8 @@ finalPlot (int nsel             = 0,
     //PG sum up all the bkg histos saved in myPlot object
     for (int i = 0 ; i < nSamples ; ++i)
       {
-        if (_bkgHist[i] != 0)
-          mc->Add(_bkgHist[i]) ;    
+        if (myPlot._bkgHist[i] != 0)
+          mc->Add(myPlot._bkgHist[i]) ;    
       }
   
 //    mc->Add(hZJets);
