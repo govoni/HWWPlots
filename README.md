@@ -1,6 +1,12 @@
 Tool to make the plots for the CMS HWW legacy paper
 ---------------------------------------------------
 
+Usage example:
+
+```
+.x finalPlot.C+(0,5,"E_{T}^{miss}","GeV","histo.root","histo_zhpresel_met",1,125,24.4)
+```
+
 The input root file is expected to contain backgrounds with the following names:
 
 - WW      : WW bkg
@@ -21,8 +27,8 @@ The available analysis categories for the plotting are the following:
 - nsel == 2 : VH 3 leptons analysis
 - nsel == 3 :
 - nsel == 4 :
-- nsel == 5 : VBF
-- nsel == 6 :
+- nsel == 5 : VBF @ WW level (signal X 30)
+- nsel == 6 : VBF @ Higgs level
 - nsel == 7 : VH V > jj
 - nsel == 8 : ZH H > lvjj
 - nsel == 9 :
