@@ -114,7 +114,16 @@ void DrawLegend (Float_t x1,
 class StandardPlot {
 
     public: 
-        StandardPlot () { _hist.resize (nSamples, 0); _data = 0; _breakdown = false; _mass = 0; _signalZoom = 1; }
+        StandardPlot () 
+          { 
+            _hist.resize (nSamples, 0); 
+            _bkgHist.resize (nSamples, 0); 
+            _sigHist.resize (nSamples, 0); 
+            _data = 0; 
+            _breakdown = false; 
+            _mass = 0; 
+            _signalZoom = 1; 
+          }
 
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -122,7 +131,8 @@ class StandardPlot {
 
         void setMCHist  (const samp & s, TH1F * h)   
           { 
-            _hist[s]= h ;  
+            _hist[s] = h ; 
+            cout << "READING SAMPLE " << s << endl ; 
             if (s != iHWW && s != iggH && s != iVBF && s != iVH)
               {
                 cout << "DEBUG reading background\n" ;
@@ -265,16 +275,28 @@ void SetColorsAndLabels ()
     
       //PG prepare the THStack
       //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+      cout << "entering the draw method" << endl ;
        
       THStack* hstack = new THStack ();
       TH1D* hSum = (TH1D*)_data->Clone ();
       hSum->Rebin (rebin);
       hSum->Scale (0.0);
+
       //PG fill the THStack
-      for (int i=0; i<nSamples; i++) 
+      for (int i = 0 ; i < nSamples ; i++) 
         {
-          // in case the user doesn't set it
-          if (!_bkgHist[i] == 0 && (!isHWWOverlaid || _sigHist[i] == 0)) continue ;
+          cout << _bkgHist[i] << "\t" ;
+          cout << isHWWOverlaid << "\t" ;
+          cout << _sigHist[i] << "\t" ;
+          cout << ((!_bkgHist[i] == 0) && (!isHWWOverlaid || _sigHist[i] == 0)) << endl ;
+
+          if (_bkgHist[i] == 0) 
+            {
+              if (!isHWWOverlaid ) continue ;
+              else if (_sigHist[i] == 0) continue ;
+            }  
+
           if (_hist[i] == 0)
             {
               cerr << "error: something is messed up in reading samples, exiting" << endl ;
@@ -294,19 +316,29 @@ void SetColorsAndLabels ()
                   xa->SetRangeUser (1,4);
                 }
             }
+            
+          cout << "here" << endl ;  
+          cout << _sampleColor[i] << endl ;  
+          cout << "here" << endl ;  
           _hist[i]->Rebin (rebin);
           _hist[i]->SetLineColor (_sampleColor[i]);
     
           _hist[i]->SetFillColor (_sampleColor[i]);
           _hist[i]->SetFillStyle (1001);
+          cout << "here" << endl ;  
     
           hstack->Add (_hist[i]);
+          cout << "here" << endl ;  
           hSum->Add (_hist[i]);
+          cout << "here" << endl ;  
         } //PG fill the THStack
     
+      cout << "before loop on signal samples" << endl ;
+
       //PG setup signal samples
       for (int i=0; i<nSamples; i++) 
         {
+          cout << "sample " << i << endl ;
           if (_sigHist[i]) _hist[i]->SetLineWidth (3) ;
           if (_sigHist[i]) _hist[i]->SetLineColor (_sampleColor[i]) ;
           if (i == iVBF) _hist[i]->SetLineStyle (2) ;
@@ -315,6 +347,8 @@ void SetColorsAndLabels ()
       if (_data) _data->Rebin (rebin);
       if (_data) _data->SetLineColor (kBlack);
       if (_data) _data->SetMarkerStyle (kFullCircle);
+      cout << "draw thstack " << endl ;
+
       hstack->Draw ("hist");
     
       bool plotSystErrorBars = true;

@@ -75,6 +75,9 @@ finalPlot (int nsel             = 0,
   if (hWg)    hWg   ->Scale(scale);
   if (hWgs)   hWgs  ->Scale(scale);
 
+  //PG get the signal histograms from the file
+  //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+
   TH1F* hggH   = (TH1F*) file->Get("ggH");
   TH1F* hqqH   = (TH1F*) file->Get("qqH");
   TH1F* hVH    = (TH1F*) file->Get("VH");
@@ -94,20 +97,20 @@ finalPlot (int nsel             = 0,
   cout << "assigning histos to the plotting object" << endl ;
 
   // nsel == 1 means HWW analysis
-  if(nsel == 0 || nsel == 1){
+  if(nsel == 0 || nsel == 1) {
+    cout << "nsel = " << nsel << ", main analysis plots" << endl ;
     if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
     if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
     if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
-    if(hVV->GetSumOfWeights()     > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
+    if(hVV->GetSumOfWeights()    > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
     if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
     if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
     if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
-    myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone("hHWW")) ;
+    myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
 
   }
   // nsel == 2 means VH > 3 leptons
-  else if(nsel == 2 || nsel == 3) {
-    cout << "nsel = " << nsel << ", main analysis plots" << endl ;
+  else if (nsel == 2 || nsel == 3) {
 
     TH1F* hZGamma = (TH1F*)file->Get("histo6");
     if(hZGamma->GetSumOfWeights() > 0) myPlot.setMCHist(iZGamma, (TH1F*)hZGamma->Clone("hZGamma"));
@@ -120,23 +123,22 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
     
   }
-  else if(nsel == 4) {
+  else if (nsel == 4) {
     myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
     myPlot.setMCHist(iVVV,   (TH1F*)hZJets->Clone("hZJets"));
     myPlot.setMCHist(iWZ,    (TH1F*)hTop  ->Clone("hTop"));
     myPlot.setMCHist(iZZ,    (TH1F*)hVV   ->Clone("hVV")); 
     myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
   }
-  else if(nsel == 5) {
-//    myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
-//    myPlot.setMCHist(iVVV,   (TH1F*)hZJets->Clone("hZJets"));
-//    myPlot.setMCHist(iWZ,    (TH1F*)hTop  ->Clone("hTop"));
-//    myPlot.setMCHist(iZZ,    (TH1F*)hVV   ->Clone("hVV")); 
-//    myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
+  else if (nsel == 5) {
+    cout << "nsel = " << nsel << ", VBF analysis plots" << endl ;
+    myPlot.setMCHist (iZJets, (TH1F*) hWW   ->Clone ("hWW"));
+    myPlot.setMCHist (iVVV,   (TH1F*) hZJets->Clone ("hZJets"));
+    myPlot.setMCHist (iWZ,    (TH1F*) hTop  ->Clone ("hTop"));
+    myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
+    myPlot.setMCHist (iggH,   (TH1F*) hWJets->Clone ("hggH"));
+    myPlot.setMCHist (iVBF,   (TH1F*) hWJets->Clone ("hVBF"));
   }
-
-  //PG get the signal histogram
-  //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
@@ -148,29 +150,21 @@ finalPlot (int nsel             = 0,
   cout << "passing data to the plotting object" << endl ;
   myPlot.setDataHist((TH1F*)hData->Clone("data"));
 
-  printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
-      hWW->GetSumOfWeights(),hZJets->GetSumOfWeights(),hTop->GetSumOfWeights(),
-      hVV->GetSumOfWeights(),hWJets->GetSumOfWeights(),
-      hWW->GetSumOfWeights()+hZJets->GetSumOfWeights()+hTop->GetSumOfWeights()+
-      hVV->GetSumOfWeights()+hWJets->GetSumOfWeights(),
-      hData->GetSumOfWeights(),hHWW->GetSumOfWeights());
-/*
-  TH1F* www    = (TH1F*)file->Get("histo0");
-  www->Add( hZJets );
-  www->Add( hTop   );
-  www->Add( hVV    );
-  www->Add( hWJets );
-  hData->Divide(www);
-  hData->Draw();
-  for(int i=1; i<=hData->GetNbinsX(); i++){
-    cout << hData->GetBinContent(i)<<endl;
-  }
-  return;
-*/
+  cout << "printout" << endl ;
+
+//  printf("%f + %f + %f + %f + %f = %f - %f - sig: %f\n",
+//      hWW->GetSumOfWeights(),hZJets->GetSumOfWeights(),hTop->GetSumOfWeights(),
+//      hVV->GetSumOfWeights(),hWJets->GetSumOfWeights(),
+//      hWW->GetSumOfWeights()+hZJets->GetSumOfWeights()+hTop->GetSumOfWeights()+
+//      hVV->GetSumOfWeights()+hWJets->GetSumOfWeights(),
+//      hData->GetSumOfWeights(),hHWW->GetSumOfWeights());
   TCanvas* c1 = new TCanvas("c1", "c1");
 
   if(isLogY == true) c1->SetLogy();
+
+  cout << "call the draw method of the plotting tool" << endl ;
   myPlot.Draw(ReBin);  // Can pass a rebin 
+  cout << "done" << endl ;
   c1->GetFrame()->DrawClone();
 
   //hggH->Rebin(ReBin);
