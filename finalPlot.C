@@ -59,15 +59,19 @@ finalPlot (int nsel             = 0,
   cout << "getting histograms " << endl ;
 
   TH1F* hWW     = (TH1F*) file->Get ("WW");
+  TH1F* hZZ     = (TH1F*) file->Get ("ZZ");
+  TH1F* hFakes     = (TH1F*) file->Get ("fakes");
   TH1F* hZJets  = (TH1F*) file->Get ("DY+jets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
   TH1F* hVV     = (TH1F*) file->Get ("VV"); 
-  TH1F* hVVV    = (TH1F*) file->Get ("VVV"); 
+  TH1F* hWZ    = (TH1F*) file->Get ("WZ"); 
   TH1F* hWJets  = (TH1F*) file->Get ("W+jets");
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
   double scale = 1;
   if (hWW)    hWW   ->Scale(scale);
+  if (hZZ)    hZZ   ->Scale(scale);
+  if (hFakes)    hFakes   ->Scale(scale);
   if (hZJets) hZJets->Scale(scale);
   if (hTop)   hTop  ->Scale(scale);
   if (hVV)    hVV   ->Scale(scale);
@@ -141,7 +145,14 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
   }
-
+  else if (nsel == 8) {
+    cout << "nsel = " << nsel << ", ZH analysis plots" << endl ;
+    myPlot.setMCHist (iZZ,    (TH1F*) hZZ->Clone ("hZZ"));
+    myPlot.setMCHist (iWZ,   (TH1F*) hWZ->Clone("hWZ"));
+    myPlot.setMCHist (iFakes, (TH1F*) hFakes  ->Clone("hFakes"));
+    myPlot.setMCHist (iVH,    (TH1F*) hVH  ->Clone ("hVH"));
+    myPlot._sampleLabel[iWZ    ] = " WZ/VVV";
+  }
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
