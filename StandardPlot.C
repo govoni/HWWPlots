@@ -22,8 +22,8 @@ const Bool_t isHWWOverlaid = false;
 //PG NB nSamples is the actual size of the enum
 enum samp { iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iHWW, iggH, iVBF, iVH, iWgamma, iWgammaS, nSamples };
 
-float xPos[nSamples+1] = {0.19,0.19,0.19,0.41,0.41,0.41,0.41,0.19,0.41,0.19,0.41,0.41}; 
-float yOff[nSamples+1] = {0,1,2,0,1,2,3,0,1,0,1,2};
+float xPos[nSamples+1] = {0.19,0.19,0.19,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41}; 
+float yOff[nSamples+1] = {0   ,1   ,2   ,0   ,1   ,2   ,3   ,4   ,1   ,0   ,1   ,2   ,3};
 
 const Float_t _tsize   = 0.033;
 const Float_t _xoffset = 0.20;
@@ -170,8 +170,8 @@ void SetColorsAndLabels ()
     _sampleColor[iggH    ] = kRed + 1 ;
     _sampleColor[iVBF    ] = kBlue + 1 ;
     _sampleColor[iVH     ] = 635 ; // kRed + 3?
-    _sampleColor[iWgamma ] = kViolet + 1 ;
-    _sampleColor[iWgammaS] = kViolet + 1  ;
+    _sampleColor[iWgamma ] = 616+1; // kViolet + 1 ;
+    _sampleColor[iWgammaS] = 616+1; // kViolet + 1  ;
   
     _sampleLabel = new TString [nSamples] ;
     TString higgsLabel ;
@@ -247,6 +247,7 @@ void SetColorsAndLabels ()
       _mass = m ; 
       TString dummy = "m#lower[0.3]{_{H}} = " ;
       dummy += _mass ;
+      dummy += " GeV";
       _extraLabels.push_back (dummy) ;
     }
 

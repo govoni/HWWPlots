@@ -64,20 +64,25 @@ finalPlot (int nsel             = 0,
   TH1F* hZJets  = (TH1F*) file->Get ("DY+jets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
   TH1F* hVV     = (TH1F*) file->Get ("VV"); 
+  TH1F* hVVV    = (TH1F*) file->Get ("VVV"); 
   TH1F* hWZ    = (TH1F*) file->Get ("WZ"); 
   TH1F* hWJets  = (TH1F*) file->Get ("W+jets");
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
+  TH1F* hVg     = (TH1F*) file->Get ("Vg");
+  
   double scale = 1;
   if (hWW)    hWW   ->Scale(scale);
   if (hZZ)    hZZ   ->Scale(scale);
-  if (hFakes)    hFakes   ->Scale(scale);
+  if (hFakes) hFakes->Scale(scale);
   if (hZJets) hZJets->Scale(scale);
   if (hTop)   hTop  ->Scale(scale);
   if (hVV)    hVV   ->Scale(scale);
+  if (hVVV)   hVVV  ->Scale(scale);
   if (hWJets) hWJets->Scale(scale);
   if (hWg)    hWg   ->Scale(scale);
   if (hWgs)   hWgs  ->Scale(scale);
+  if (hVg)    hVg   ->Scale(scale);
 
   //PG get the signal histograms from the file
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
@@ -137,8 +142,21 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
   }
   else if (nsel == 5) {
-    cout << "nsel = " << nsel << ", VBF analysis plots" << endl ;
+    cout << "nsel = " << nsel << ", VBF analysis plots (at WW level)" << endl ;
     myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
+    myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
+    myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
+    myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
+    myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
+    myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
+    myPlot._sampleLabel[iWgamma] = " V+#gamma/V+#gamma*";
+  }
+  else if (nsel == 7) {
+    cout << "nsel = " << nsel << ", VH analysis plots" << endl ;
+    myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
+    myPlot.setMCHist (iVV,    (TH1F*) hWW   ->Clone ("hVV"));
+    myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
