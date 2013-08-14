@@ -1,6 +1,7 @@
 // .x finalPlot.C+(0,5,"E_{T}^{miss}","GeV","histo.root","histo_zhpresel_met",1,125,24.4, doDataMCRatio, signalZoom)
 
 #include "TROOT.h"
+#include "TSystem.h"
 #include "TInterpreter.h"
 #include "TFile.h"
 #include "TCanvas.h"
@@ -144,13 +145,15 @@ finalPlot (int nsel             = 0,
   else if (nsel == 5) {
     cout << "nsel = " << nsel << ", VBF analysis plots (at WW level)" << endl ;
     myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
+    myPlot.setMCHist (iVV,    (TH1F*) hWW   ->Clone ("hVV"));
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
-    myPlot._sampleLabel[iWgamma] = " V+#gamma/V+#gamma*";
+    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
+    myPlot._sampleLabel[iVV] = "WZ/ZZ";
   }
   else if (nsel == 7) {
     cout << "nsel = " << nsel << ", VH analysis plots" << endl ;
@@ -199,6 +202,10 @@ finalPlot (int nsel             = 0,
   //hqqH->Draw("same,hist");
   //hVH ->Draw("same,hist");
   //cout << hggH->GetSumOfWeights() << " " << hqqH->GetSumOfWeights() << " " << hVH->GetSumOfWeights() << endl;
+
+  char CommandToExec[300];
+  sprintf(CommandToExec,"mkdir plots");
+  gSystem->Exec(CommandToExec);  
 
   char myOutputFile[300];
   sprintf(myOutputFile,"plots/%s.eps",outputName);
