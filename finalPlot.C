@@ -41,7 +41,6 @@ finalPlot (int nsel             = 0,
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
   myPlot.setSignalZoom (signalZoom) ;
-  myPlot.setMass (MassH) ;
   if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
   else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
   else if(lumi ==   24.4) myPlot.addLabel("#sqrt{s} = 7+8 TeV");
@@ -50,6 +49,7 @@ finalPlot (int nsel             = 0,
   else if(lumi ==   4.92) myPlot.addLabel("OSSF #sqrt{s} = 7 TeV");
   else if(lumi ==  19.52) myPlot.addLabel("OSSF #sqrt{s} = 8 TeV");
   else                    myPlot.addLabel(""); 
+  myPlot.setMass (MassH) ;
   myPlot.setUnits(units);
   myPlot.SetColorsAndLabels () ;
 

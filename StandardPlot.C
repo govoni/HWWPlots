@@ -99,16 +99,19 @@ void DrawLegend (Float_t x1,
             x1 + _xoffset,
             y1 + _yoffset);
 
-    legend->SetBorderSize (     0);
-    legend->SetFillColor (     0);
-    legend->SetTextAlign (    12);
-    legend->SetTextFont (    42);
-    legend->SetTextSize (_tsize);
+    legend->SetBorderSize (0) ;
+    legend->SetFillColor (0) ;
+    legend->SetTextAlign (12) ;
+    legend->SetTextFont (42) ;
+    legend->SetTextSize (_tsize) ;
 
     legend->AddEntry (hist, label.Data (), option.Data ());
 
     legend->Draw ();
 }
+
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
 class StandardPlot {
@@ -239,7 +242,18 @@ void SetColorsAndLabels ()
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-  void setMass (const int &m)         { _mass = m ; }
+  void setMass (const int &m)         
+    { 
+      _mass = m ; 
+      TString dummy = "m#lower[0.3]{_{H}} = " ;
+      dummy += _mass ;
+      _extraLabels.push_back (dummy) ;
+    }
+
+
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
   void setSignalZoom (const int zoom) { _signalZoom = zoom ; }
 
 
@@ -276,7 +290,6 @@ void SetColorsAndLabels ()
       //PG prepare the THStack
       //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-      cout << "entering the draw method" << endl ;
        
       THStack* hstack = new THStack ();
       TH1D* hSum = (TH1D*)_data->Clone ();
@@ -286,11 +299,6 @@ void SetColorsAndLabels ()
       //PG fill the THStack
       for (int i = 0 ; i < nSamples ; i++) 
         {
-          cout << _bkgHist[i] << "\t" ;
-          cout << isHWWOverlaid << "\t" ;
-          cout << _sigHist[i] << "\t" ;
-          cout << ((!_bkgHist[i] == 0) && (!isHWWOverlaid || _sigHist[i] == 0)) << endl ;
-
           if (_bkgHist[i] == 0) 
             {
               if (!isHWWOverlaid ) continue ;
@@ -317,7 +325,6 @@ void SetColorsAndLabels ()
                 }
             }
             
-          cout << _sampleColor[i] << endl ;  
           _hist[i]->Rebin (rebin);
           _hist[i]->SetLineColor (_sampleColor[i]);
     
@@ -328,12 +335,9 @@ void SetColorsAndLabels ()
           hSum->Add (_hist[i]);
         } //PG fill the THStack
     
-      cout << "before loop on signal samples" << endl ;
-
       //PG setup signal samples
       for (int i=0; i<nSamples; i++) 
         {
-          cout << "sample " << i << endl ;
           if (_sigHist[i] == 0 ) continue ;
           _hist[i]->SetLineWidth (3) ;
           _hist[i]->SetLineColor (_sampleColor[i]) ;
@@ -344,7 +348,6 @@ void SetColorsAndLabels ()
       if (_data) _data->Rebin (rebin);
       if (_data) _data->SetLineColor (kBlack);
       if (_data) _data->SetMarkerStyle (kFullCircle);
-      cout << "draw thstack " << endl ;
 
       hstack->Draw ("hist");
     
@@ -369,15 +372,12 @@ void SetColorsAndLabels ()
     
       if (_hist[iHWW] && isHWWOverlaid == false) _hist[iHWW]->Draw ("hist,same");
     
-
       //PG draw signal samples
       for (int i = 0 ; i < nSamples; i++) 
         {
           if (_sigHist[i]) _hist[i]->Rebin(rebin);
           if (_sigHist[i]) _hist[i]->Draw ("hist,same") ;
         } //PG draw signal samples
-    
-
 
       if (_data) 
         {
@@ -403,17 +403,8 @@ void SetColorsAndLabels ()
             }
         }
           
-      hstack->SetTitle ("CMS");
+      hstack->SetTitle ("");
 
-      TPaveText *pt = new TPaveText (0.61,0.8337762,0.9408059,0.8862238,"blNDC");
-      pt->SetName ("title");
-      pt->SetBorderSize (0);
-      pt->SetFillColor (10);
-      pt->SetTextFont (42);
-      pt->SetTextSize (_tsize);
-      pt->AddText ("CMS");
-      pt->Draw ();
- 
       Float_t theMax = hstack->GetMaximum ();
       Float_t theMin = hstack->GetMinimum ();
 
@@ -480,13 +471,47 @@ void SetColorsAndLabels ()
       if (_hist[iWgamma  ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgamma  ], _sampleLabel [iWgamma  ], "f" ); j++; }
       if (_hist[iWgammaS ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgammaS ], _sampleLabel [iWgammaS ], "f" ); j++; }
 
-      TLatex* luminosity = new TLatex (0.9, 0.8, TString::Format ("L = %.1f fb^{-1}",_lumi));
-      luminosity->SetNDC ();
-      luminosity->SetTextAlign (32);
-      luminosity->SetTextFont (42);
-      luminosity->SetTextSize (_tsize);
-      luminosity->Draw ("same");
-      if (_extraLabel) _extraLabel->Draw ("same");
+//      //PG the "CMS" flag
+//      TPaveText *pt = new TPaveText (0.61,0.8337762,0.9408059,0.8862238,"blNDC");
+//      pt->SetName ("title");
+//      pt->SetBorderSize (0);
+//      pt->SetFillColor (10);
+//      pt->SetTextFont (42);
+//      pt->SetTextSize (_tsize);
+//      pt->AddText ("CMS");
+//      pt->Draw ();
+ 
+      double dist = 0.05 ;
+      int distTimes = 0 ;
+      double xstart = 0.9 ;
+      double ystart = 0.85 ;
+  
+      //PG the CMS label
+      TLatex* flag_cms = new TLatex (xstart, ystart - dist * distTimes++, TString ("#bf{CMS}"));
+      flag_cms->SetNDC ();
+      flag_cms->SetTextAlign (32);
+      flag_cms->SetTextFont (42);
+      flag_cms->SetTextSize (_tsize);
+      flag_cms->Draw ("same");
+      
+      //PG the lumi label
+      TLatex* flag_lumi = new TLatex (xstart, ystart - dist * distTimes++, TString::Format ("L = %.1f fb#lower[0.3]{^{-1}}", _lumi)) ;
+      flag_lumi->SetNDC ();
+      flag_lumi->SetTextAlign (32);
+      flag_lumi->SetTextFont (42);
+      flag_lumi->SetTextSize (_tsize);
+      flag_lumi->Draw ("same");
+      
+      //PG the lumi label
+      for (int i = 0 ; i < _extraLabels.size () ; ++i) 
+        {
+          TLatex* flag_extra = new TLatex (xstart, ystart - dist * distTimes++, _extraLabels.at (i)) ;
+          flag_extra->SetNDC ();
+          flag_extra->SetTextAlign (32);
+          flag_extra->SetTextFont (42);
+          flag_extra->SetTextSize (_tsize);
+          flag_extra->Draw ("same");
+        }
 
       return hstack->GetHistogram () ;
     }
@@ -505,24 +530,26 @@ void SetColorsAndLabels ()
             _extraLabel->SetTextAlign (32);
             _extraLabel->SetTextFont (42);
             _extraLabel->SetTextSize (_tsize);
+            _extraLabels.push_back (TString (s.c_str ())) ;
         }
 
     private: 
         std::vector<TH1F*> _hist;
         std::vector<TH1F*> _bkgHist ;
         std::vector<TH1F*> _sigHist ;
+        std::vector<TString> _extraLabels ;
         TH1F* _data;
 
         //MWL
-        float    _lumi;
-        TString  _xLabel;
-        TString  _units;
-        TLatex * _extraLabel; 
-        bool     _breakdown;
-        int      _mass;
-        int      _signalZoom; // PG signal scale factor for plotting and legenda writing
-        TString * _sampleLabel ;
-        Color_t * _sampleColor ;
+        float    _lumi;          //PG lumi on the plot
+        TString  _xLabel;        //PG label of the x axis
+        TString  _units;         //PG units of the x axis
+        TLatex * _extraLabel;    //PG label with the centre of mass energy
+        bool     _breakdown;     //PG 
+        int      _mass;          //PG higgs mass
+        int      _signalZoom;    // PG signal scale factor for plotting and legenda writing
+        TString * _sampleLabel ; // PG list of labels for the samples
+        Color_t * _sampleColor ; //PG list of colors for the samples
 
 
 };
