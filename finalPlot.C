@@ -119,6 +119,9 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist(iZZ,    (TH1F*)hTop  ->Clone("hTop"));
     myPlot.setMCHist(iWZ,    (TH1F*)hVV   ->Clone("hVV")); 
     myPlot.setMCHist(iFakes, (TH1F*)hWJets->Clone("hWJets"));
+    TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
+    if (hqqH != 0) hHWW->Add (hqqH) ;
+    if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
     
   }
