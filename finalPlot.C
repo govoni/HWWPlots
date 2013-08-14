@@ -67,10 +67,10 @@ finalPlot (int nsel             = 0,
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
   double scale = 1;
-  if (hWW)    hWW    ->Scale(scale);
+  if (hWW)    hWW   ->Scale(scale);
   if (hZJets) hZJets->Scale(scale);
   if (hTop)   hTop  ->Scale(scale);
-  if (hVV)    hVV    ->Scale(scale);
+  if (hVV)    hVV   ->Scale(scale);
   if (hWJets) hWJets->Scale(scale);
   if (hWg)    hWg   ->Scale(scale);
   if (hWgs)   hWgs  ->Scale(scale);
@@ -85,10 +85,6 @@ finalPlot (int nsel             = 0,
   if (hggH) hggH->Scale (scale * signalZoom);
   if (hqqH) hqqH->Scale (scale * signalZoom);
   if (hVH)  hVH->Scale  (scale * signalZoom);
-
-  TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
-  if (hqqH != 0) hHWW->Add (hqqH) ;
-  if (hVH != 0)  hHWW->Add (hVH) ;
 
   //PG assing the plots to the object making the plots,
   //PG according to the channel
@@ -106,6 +102,9 @@ finalPlot (int nsel             = 0,
     if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
     if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
     if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
+    TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
+    if (hqqH != 0) hHWW->Add (hqqH) ;
+    if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
 
   }
