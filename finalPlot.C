@@ -186,6 +186,7 @@ finalPlot (int nsel             = 0,
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+    myPlot._sampleLabel[iggH] = "H";
     myPlot.setBreakdown(true);
     myPlot.setIsHWWOverlaid(true);
   }
