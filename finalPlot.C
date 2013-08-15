@@ -156,6 +156,7 @@ finalPlot (int nsel             = 0,
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+    myPlot.setIsHWWOverlaid(true);
   }
   else if (nsel == 6) {
     std::cout << "nsel = " << nsel << ", VBF analysis plots (at Higgs level) (Fig. 10)" << std::endl ;
@@ -170,6 +171,7 @@ finalPlot (int nsel             = 0,
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
     myPlot._sampleLabel[iggH] = "H";
     myPlot.setBreakdown(true);
+    myPlot.setIsHWWOverlaid(true);
   }
   else if (nsel == 7) {
     std::cout << "nsel = " << nsel << ", VH analysis plots (at Higgs level) (Fig. 12)" << std::endl ;
@@ -185,6 +187,7 @@ finalPlot (int nsel             = 0,
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
     myPlot.setBreakdown(true);
+    myPlot.setIsHWWOverlaid(true);
   }
   else if (nsel == 8) {
     std::cout << "nsel = " << nsel << ", ZH analysis plots" << std::endl ;

@@ -15,11 +15,11 @@
 #include "TPaveText.h"
 //#endif
 
-//const Bool_t isHWWOverlaid = false;
+//const Bool_t _isHWWOverlaid = false;
 //enum samp { iHWW, iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, nSamples };
 
-// const Bool_t isHWWOverlaid = false;
-const Bool_t isHWWOverlaid = true;
+// const Bool_t _isHWWOverlaid = false;
+// const Bool_t _isHWWOverlaid = true;
 
 //PG NB nSamples is the actual size of the enum
 // 0/1 jet PAS order:
@@ -134,6 +134,7 @@ class StandardPlot {
             _breakdown = false; 
             _mass = 0; 
             _signalZoom = 1; 
+            _isHWWOverlaid = false;
           }
 
 
@@ -310,7 +311,7 @@ void SetColorsAndLabels ()
       for (int i = 0 ; i < nSamples ; i++) {
           if (_bkgHist[i] == 0) 
             {
-              if (!isHWWOverlaid ) continue ;
+              if (!_isHWWOverlaid ) continue ;
               else if (_sigHist[i] == 0) continue ;
             }  
 
@@ -385,7 +386,7 @@ void SetColorsAndLabels ()
           //setex1->Draw ();
         }
     
-      if (_hist[iHWW] && isHWWOverlaid == false) _hist[iHWW]->Draw ("hist,same");
+      if (_hist[iHWW] && _isHWWOverlaid == false) _hist[iHWW]->Draw ("hist,same");
     
       //PG draw signal samples
       for (int i = 0 ; i < nSamples; i++) 
@@ -467,7 +468,7 @@ void SetColorsAndLabels ()
 
       //PG signals
       TString signalLegendRepr = "f" ;
-      if (!isHWWOverlaid) signalLegendRepr = "l" ;      
+      if (!_isHWWOverlaid) signalLegendRepr = "l" ;      
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
       else { 
 	//---- or HWW all together xor separate components
@@ -551,6 +552,7 @@ void SetColorsAndLabels ()
             _extraLabel->SetTextSize (_tsize);
             _extraLabels.push_back (TString (s.c_str ())) ;
         }
+        void setIsHWWOverlaid (const bool &b = true) { _isHWWOverlaid = b; }
 
     private: 
         std::vector<TH1F*> _hist;
@@ -569,8 +571,7 @@ void SetColorsAndLabels ()
         int      _signalZoom;    // PG signal scale factor for plotting and legenda writing
         TString * _sampleLabel ; // PG list of labels for the samples
         Color_t * _sampleColor ; //PG list of colors for the samples
-
-
+        Bool_t _isHWWOverlaid;
 };
 
 
