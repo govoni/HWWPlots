@@ -156,7 +156,7 @@ finalPlot (int nsel             = 0,
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
-    myPlot.setIsHWWOverlaid(true);
+//     myPlot.setIsHWWOverlaid(true);
   }
   else if (nsel == 6) {
     std::cout << "nsel = " << nsel << ", VBF analysis plots (at Higgs level) (Fig. 10)" << std::endl ;
