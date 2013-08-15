@@ -18,12 +18,20 @@
 //const Bool_t isHWWOverlaid = false;
 //enum samp { iHWW, iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, nSamples };
 
-const Bool_t isHWWOverlaid = false;
-//PG NB nSamples is the actual size of the enum
-enum samp { iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iHWW, iggH, iVBF, iVH, iWgamma, iWgammaS, nSamples };
+// const Bool_t isHWWOverlaid = false;
+const Bool_t isHWWOverlaid = true;
 
-float xPos[nSamples+1] = {0.19,0.19,0.19,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41}; 
-float yOff[nSamples+1] = {0   ,1   ,2   ,0   ,1   ,2   ,3   ,4   ,1   ,0   ,1   ,2   ,3};
+//PG NB nSamples is the actual size of the enum
+// 0/1 jet PAS order:
+enum samp { iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iHWW, iggH, iVBF, iVH, nSamples };
+
+// VH and VBF PAS order:
+// enum samp { iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iTop, iZJets, iWW, iHWW, iggH, iVBF, iVH, nSamples };
+
+
+//                         data
+float xPos[nSamples+1] = {0.19      ,0.19,0.19,0.19,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41}; 
+float yOff[nSamples+1] = {0         ,1   ,2   ,3   ,0   ,1   ,2   ,3   ,4   ,5   ,6   ,7   ,8   ,9};
 
 const Float_t _tsize   = 0.033;
 const Float_t _xoffset = 0.20;
@@ -135,15 +143,16 @@ class StandardPlot {
         void setMCHist  (const samp & s, TH1F * h)   
           { 
             _hist[s] = h ; 
-            cout << "READING SAMPLE " << s << endl ; 
+            std::cout << "READING SAMPLE " << s << " :: " << _sampleLabel[s] << std::endl ; 
+            std::cout << "                  int = " << _hist[s]->Integral() << std::endl ; 
             if (s != iHWW && s != iggH && s != iVBF && s != iVH)
               {
-                cout << "DEBUG reading background\n" ;
+                std::cout << "DEBUG reading background\n" ;
                 _bkgHist[s] = h ;
               }
             else  
               {
-                cout << "DEBUG reading singal\n" ;
+                std::cout << "DEBUG reading singal\n" ;
                 _sigHist[s] = h ;
               }
           } 
@@ -221,14 +230,14 @@ void SetColorsAndLabels ()
   void setDataHist (TH1F * h)                 { _data          = h;  } 
   void setHWWHist  (TH1F * h)                 { setMCHist (iHWW  ,h); } 
   void setWWHist   (TH1F * h)                 { setMCHist (iWW   ,h); } 
-  void setZJetsHist (TH1F * h)                 { setMCHist (iZJets,h); } 
+  void setZJetsHist (TH1F * h)                { setMCHist (iZJets,h); } 
   void setTopHist  (TH1F * h)                 { setMCHist (iTop  ,h); } 
   void setVVHist   (TH1F * h)                 { setMCHist (iVV   ,h); } 
   void setWZHist   (TH1F * h)                 { setMCHist (iWZ   ,h); } 
   void setZZHist   (TH1F * h)                 { setMCHist (iZZ   ,h); } 
-  void setFakesHist (TH1F * h)                 { setMCHist (iFakes,h); } 
-  void setWJetsHist (TH1F * h)                 { setMCHist (iWJets,h); }
-  void setZGammaHist (TH1F * h)                 { setMCHist (iZGamma,h);}
+  void setFakesHist (TH1F * h)                { setMCHist (iFakes,h); } 
+  void setWJetsHist (TH1F * h)                { setMCHist (iWJets,h); }
+  void setZGammaHist (TH1F * h)               { setMCHist (iZGamma,h);}
   void setVVVHist  (TH1F * h)                 { setMCHist (iVVV  ,h); } 
   void setEMHist   (TH1F * h)                 { setMCHist (iEM   ,h); } 
 
@@ -298,8 +307,7 @@ void SetColorsAndLabels ()
       hSum->Scale (0.0);
 
       //PG fill the THStack
-      for (int i = 0 ; i < nSamples ; i++) 
-        {
+      for (int i = 0 ; i < nSamples ; i++) {
           if (_bkgHist[i] == 0) 
             {
               if (!isHWWOverlaid ) continue ;
@@ -308,7 +316,7 @@ void SetColorsAndLabels ()
 
           if (_hist[i] == 0)
             {
-              cerr << "error: something is messed up in reading samples, exiting" << endl ;
+              std::cerr << "error: something is messed up in reading samples, exiting" << std::endl ;
               exit (1) ;
             }
     
@@ -332,8 +340,14 @@ void SetColorsAndLabels ()
           _hist[i]->SetFillColor (_sampleColor[i]);
           _hist[i]->SetFillStyle (1001);
     
-          hstack->Add (_hist[i]);
-          hSum->Add (_hist[i]);
+	  //---- the signal
+	  if (i==13 || i==14 || i==15 || i==16) _hist[i]->SetFillStyle (3004);
+	  
+          TH1F* temp_hist = (TH1F*) _hist[i]->Clone();
+          hstack->Add (temp_hist);
+          hSum->Add (temp_hist);
+//           hstack->Add (_hist[i]);
+//           hSum->Add (_hist[i]);
         } //PG fill the THStack
     
       //PG setup signal samples
@@ -395,7 +409,8 @@ void SetColorsAndLabels ()
                                        ( ROOT::Math::gamma_quantile_c (alpha/2,N+1,1.) );
                   g->SetPointEYlow (i,double (N)-L);
                   if (N > 0) g->SetPointEYhigh (i, U-double (N));
-                  else      g->SetPointEYhigh (i, 0.0);
+                  else  g->SetPointEYhigh (i, 1.14); // --> bayesian interval Poisson with 0 events observed    
+// 		    g->SetPointEYhigh (i, 0.0);
                 }
               g->Draw ("P");
             }
@@ -427,7 +442,7 @@ void SetColorsAndLabels ()
       }
 
       if (_breakdown) {
-          THStackAxisFonts (hstack, "y", "Entries");
+          THStackAxisFonts (hstack, "y", "Entries / bin");
           hstack->GetHistogram ()->LabelsOption ("v");
       } else {
           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));
@@ -453,11 +468,13 @@ void SetColorsAndLabels ()
       //PG signals
       TString signalLegendRepr = "f" ;
       if (!isHWWOverlaid) signalLegendRepr = "l" ;      
-      if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; }
-      if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; }
-      if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; }
-      if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; }
-
+      if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
+      else { 
+	//---- or HWW all together xor separate components
+        if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
+        if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; } else j++;
+        if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; } else j++;
+      }
       //PG backgrounds
       if (_hist[iWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWW      ], _sampleLabel [iWW      ], "f" ); j++; }
       if (_hist[iZJets   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZJets   ], _sampleLabel [iZJets   ], "f" ); j++; }

@@ -27,16 +27,17 @@ finalPlot (int nsel             = 0,
            int signalZoom       = 1
   ) 
 {
+  
   gInterpreter->ExecuteMacro("GoodStyle.C");
   gROOT->LoadMacro("StandardPlot.C");
 
-  cout << "reading " << plotName << endl ;
+  std::cout << "reading " << plotName << std::endl ;
   TFile* file = new TFile(plotName, "read");
 
   //PG prepare the object that is making the plots
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-  cout << "setting up the plot object " << endl ;
+  std::cout << "setting up the plot object " << std::endl ;
 
   StandardPlot myPlot;
   myPlot.setLumi(lumi);
@@ -57,7 +58,7 @@ finalPlot (int nsel             = 0,
   //PG get the bkg histograms from the file
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-  cout << "getting histograms " << endl ;
+  std::cout << "getting histograms " << std::endl ;
 
   TH1F* hWW     = (TH1F*) file->Get ("WW");
   TH1F* hZZ     = (TH1F*) file->Get ("ZZ");
@@ -100,11 +101,11 @@ finalPlot (int nsel             = 0,
   //PG according to the channel
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-  cout << "assigning histos to the plotting object" << endl ;
+  std::cout << "assigning histos to the plotting object" << std::endl ;
 
   // nsel == 1 means HWW analysis
   if(nsel == 0 || nsel == 1) {
-    cout << "nsel = " << nsel << ", main analysis plots" << endl ;
+    std::cout << "nsel = " << nsel << ", main analysis plots" << std::endl ;
     if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
     if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
     if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
@@ -143,31 +144,50 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist(iEM,    (TH1F*)hWJets->Clone("hWJets"));
   }
   else if (nsel == 5) {
-    cout << "nsel = " << nsel << ", VBF analysis plots (at WW level)" << endl ;
+    std::cout << "nsel = " << nsel << ", VBF/VH analysis plots (at WW level) (Fig. 2)" << std::endl ;
+    myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));    // x
+    myPlot.setMCHist (iVV,    (TH1F*) hVV   ->Clone ("hVV"));    // x
+    myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets")); // x
+    myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));  // x
+    myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));    // x
+    myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));    // x
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
+    myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
+//     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
+    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
+    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+  }
+  else if (nsel == 6) {
+    std::cout << "nsel = " << nsel << ", VBF analysis plots (at Higgs level) (Fig. 10)" << std::endl ;
     myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
-    myPlot.setMCHist (iVV,    (TH1F*) hWW   ->Clone ("hVV"));
+    myPlot.setMCHist (iVV,    (TH1F*) hVV   ->Clone ("hVV"));
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
-    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
-    myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "H"
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
-    myPlot._sampleLabel[iVV] = "WZ/ZZ";
+    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+    myPlot._sampleLabel[iggH] = "H";
+    myPlot.setBreakdown(true);
   }
   else if (nsel == 7) {
-    cout << "nsel = " << nsel << ", VH analysis plots" << endl ;
+    std::cout << "nsel = " << nsel << ", VH analysis plots (at Higgs level) (Fig. 12)" << std::endl ;
     myPlot.setMCHist (iWW,    (TH1F*) hWW   ->Clone ("hWW"));
-    myPlot.setMCHist (iVV,    (TH1F*) hWW   ->Clone ("hVV"));
+    myPlot.setMCHist (iVV,    (TH1F*) hVV   ->Clone ("hVV"));
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
-    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
-    myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "H"
+//     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
+//     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
+    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
+    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+    myPlot.setBreakdown(true);
   }
   else if (nsel == 8) {
-    cout << "nsel = " << nsel << ", ZH analysis plots" << endl ;
+    std::cout << "nsel = " << nsel << ", ZH analysis plots" << std::endl ;
     myPlot.setMCHist (iZZ,    (TH1F*) hZZ->Clone ("hZZ"));
     myPlot.setMCHist (iWZ,   (TH1F*) hWZ->Clone("hWZ"));
     myPlot.setMCHist (iFakes, (TH1F*) hFakes  ->Clone("hFakes"));
@@ -177,22 +197,22 @@ finalPlot (int nsel             = 0,
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 
-  cout << "getting data" << endl ;
+  std::cout << "getting data" << std::endl ;
 
   TH1F *hData = (TH1F*)file->Get("Data"); 
 
-  cout << "passing data to the plotting object" << endl ;
+  std::cout << "passing data to the plotting object" << std::endl ;
   myPlot.setDataHist((TH1F*)hData->Clone("data"));
 
-  cout << "printout" << endl ;
+  std::cout << "printout" << std::endl ;
 
   TCanvas* c1 = new TCanvas("c1", "c1");
 
   if(isLogY == true) c1->SetLogy();
 
-  cout << "call the draw method of the plotting tool" << endl ;
+  std::cout << "call the draw method of the plotting tool" << std::endl ;
   myPlot.Draw(ReBin);  // Can pass a rebin 
-  cout << "done" << endl ;
+  std::cout << "done" << std::endl ;
   c1->GetFrame()->DrawClone();
 
   //hggH->Rebin(ReBin);
@@ -201,7 +221,7 @@ finalPlot (int nsel             = 0,
   //hggH->Draw("same,hist");
   //hqqH->Draw("same,hist");
   //hVH ->Draw("same,hist");
-  //cout << hggH->GetSumOfWeights() << " " << hqqH->GetSumOfWeights() << " " << hVH->GetSumOfWeights() << endl;
+  //std::cout << hggH->GetSumOfWeights() << " " << hqqH->GetSumOfWeights() << " " << hVH->GetSumOfWeights() << std::endl;
 
   char CommandToExec[300];
   sprintf(CommandToExec,"mkdir plots");
