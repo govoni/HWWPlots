@@ -45,7 +45,7 @@ The available analysis categories for the plotting are the following:
 - nsel == 2 : VH 3 leptons analysis
 - nsel == 3 :
 - nsel == 4 :
-- nsel == 5 : VBF @ WW level
+- nsel == 5 : VBF/VH @ WW level
 - nsel == 6 : VBF @ Higgs level
 - nsel == 7 : VH V > jj
 - nsel == 8 : ZH H > lvjj
