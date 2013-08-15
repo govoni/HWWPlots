@@ -5,6 +5,7 @@ Usage example:
 
 ```
 .x finalPlot.C+(5, 1, "#Delta#eta_{jj}", "", "test.root", "delta_eta_jj", 0, 125, 24.4, 1, 20)
+r00t finalPlot.C+\(5,1,\"#Delta#eta_{jj}\",\"\",\"test.root\",\"delta_eta_jj\",0,125,24.4,1,20\)
 ```
 
 with the following arguments:
