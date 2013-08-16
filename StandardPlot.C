@@ -23,10 +23,10 @@
 
 //PG NB nSamples is the actual size of the enum
 // 0/1 jet PAS order:
-// enum samp { iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iHWW, iggH, iVBF, iVH, nSamples };
+enum samp { iWW, iZJets, iTop, iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iHWW, iggH, iVBF, iVH, nSamples };
 
 // VH and VBF PAS order:
-enum samp { iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iTop, iZJets, iWW, iHWW, iggH, iVBF, iVH, nSamples };
+// enum samp { iVV, iWJets, iWZ, iZZ, iFakes, iZGamma, iVVV, iEM, iWgamma, iWgammaS, iTop, iZJets, iWW, iHWW, iggH, iVBF, iVH, nSamples };
 
 
 //                         data
@@ -135,6 +135,10 @@ class StandardPlot {
             _mass = 0; 
             _signalZoom = 1; 
             _isHWWOverlaid = false;
+
+            for (int itemp = 0 ; itemp < nSamples ; itemp++) {
+             _position.push_back(itemp);
+            }
           }
 
 
@@ -308,7 +312,10 @@ void SetColorsAndLabels ()
       hSum->Scale (0.0);
 
       //PG fill the THStack
-      for (int i = 0 ; i < nSamples ; i++) {
+      for (int itemp = 0 ; itemp < nSamples ; itemp++) {
+       
+       int i = _position.at(itemp);
+       
           if (_bkgHist[i] == 0) 
             {
               if (!_isHWWOverlaid ) continue ;
@@ -343,7 +350,7 @@ void SetColorsAndLabels ()
     
 	  //---- the signal
 	  if (i==13 || i==14 || i==15 || i==16) _hist[i]->SetFillStyle (3004);
-	  
+	   
           TH1F* temp_hist = (TH1F*) _hist[i]->Clone();
           hstack->Add (temp_hist);
           hSum->Add (temp_hist);
@@ -575,6 +582,7 @@ void SetColorsAndLabels ()
         TString * _sampleLabel ; // PG list of labels for the samples
         Color_t * _sampleColor ; //PG list of colors for the samples
         Bool_t _isHWWOverlaid;
+        std::vector<int> _position; //---- order to plot samples
 };
 
 
