@@ -111,12 +111,13 @@ finalPlot (int nsel             = 0,
     if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
     if(hVV->GetSumOfWeights()    > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
     if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
-    if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWJets->Clone("hWgamma"));
-    if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWJets->Clone("hWgammaS"));
-    TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
+    //if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWg->Clone("hWg"));
+    //if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWgs->Clone("hWgs"));
+    TH1F* hHWW     = (TH1F*) hggH->Clone ("hggH");
     if (hqqH != 0) hHWW->Add (hqqH) ;
     if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
+    //myPlot.setIsHWWOverlaid(true);
 
   }
   // nsel == 2 means VH > 3 leptons
