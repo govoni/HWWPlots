@@ -445,6 +445,9 @@ void SetColorsAndLabels ()
       if (_breakdown) {
           THStackAxisFonts (hstack, "y", "Entries / bin");
           hstack->GetHistogram ()->LabelsOption ("v");
+          if (_units.Sizeof () != 1) {
+           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));           
+          }
       } else {
           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));
           if (_units.Sizeof () == 1) {
@@ -542,7 +545,7 @@ void SetColorsAndLabels ()
 
         void setLumi (const float &l) { _lumi = l; }
         void setLabel (const TString &s) { _xLabel = s; }
-        void setUnits (const TString &s) { _units = s; }
+        void setUnits (const TString &s) { _units = s; std::cout << " UNITS = " << s << std::endl;}
         void setBreakdown (const bool &b = true) { _breakdown = b; }
         void addLabel (const std::string &s) {
             _extraLabel = new TLatex (0.9, 0.74, TString (s));
