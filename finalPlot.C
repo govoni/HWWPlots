@@ -212,6 +212,7 @@ finalPlot (int nsel             = 0,
     myPlot._position[16] = iVH;
     myPlot._position[17] = nSamples;
     
+    myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("errorBand")));
   }
   else if (nsel == 7) {
     std::cout << "nsel = " << nsel << ", VH analysis plots (at Higgs level) (Fig. 12)" << std::endl ;
@@ -229,6 +230,27 @@ finalPlot (int nsel             = 0,
     myPlot._sampleLabel[iggH] = "H";
     myPlot.setBreakdown(true);
     myPlot.setIsHWWOverlaid(true);
+    
+    myPlot._position[0]  = iVV;
+    myPlot._position[1]  = iWJets;
+    myPlot._position[2]  = iWZ;
+    myPlot._position[3]  = iZZ;
+    myPlot._position[4]  = iFakes;
+    myPlot._position[5]  = iZGamma;
+    myPlot._position[6]  = iVVV;
+    myPlot._position[7]  = iEM;
+    myPlot._position[8]  = iWgamma;
+    myPlot._position[9]  = iWgammaS;
+    myPlot._position[10] = iTop;
+    myPlot._position[11] = iZJets;
+    myPlot._position[12] = iWW;
+    myPlot._position[13] = iHWW;
+    myPlot._position[14] = iggH;
+    myPlot._position[15] = iVBF;
+    myPlot._position[16] = iVH;
+    myPlot._position[17] = nSamples;
+    
+    myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("errorBand")));
   }
   else if (nsel == 8) {
     std::cout << "nsel = " << nsel << ", ZH analysis plots" << std::endl ;

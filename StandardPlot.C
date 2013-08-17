@@ -139,6 +139,8 @@ class StandardPlot {
             for (int itemp = 0 ; itemp < nSamples ; itemp++) {
              _position.push_back(itemp);
             }
+            
+            _BandError = 0x0;
           }
 
 
@@ -374,21 +376,38 @@ void SetColorsAndLabels ()
 
       hstack->Draw ("hist");
     
+      bool addTenPerCentSyst = false;
       bool plotSystErrorBars = true;
       if (plotSystErrorBars == true)
         {
           TGraphAsymmErrors * gsyst = new TGraphAsymmErrors (hSum);
-          for (int i = 0; i < gsyst->GetN (); ++i) 
-            {
-              gsyst->SetPointEYlow (i, sqrt (hSum->GetBinError (i+1)*hSum->GetBinError (i+1)+hSum->GetBinContent (i+1)*hSum->GetBinContent (i+1)*0.10*0.10));
-              gsyst->SetPointEYhigh (i, sqrt (hSum->GetBinError (i+1)*hSum->GetBinError (i+1)+hSum->GetBinContent (i+1)*hSum->GetBinContent (i+1)*0.10*0.10));
-            }
+          for (int i = 0; i < gsyst->GetN (); ++i) {
+           if (addTenPerCentSyst) {
+            gsyst->SetPointEYlow (i, sqrt (hSum->GetBinError (i+1)*hSum->GetBinError (i+1)+hSum->GetBinContent (i+1)*hSum->GetBinContent (i+1)*0.10*0.10));
+            gsyst->SetPointEYhigh (i, sqrt (hSum->GetBinError (i+1)*hSum->GetBinError (i+1)+hSum->GetBinContent (i+1)*hSum->GetBinContent (i+1)*0.10*0.10));
+           }
+           else {
+            gsyst->SetPointEYlow (i, hSum->GetBinError (i+1));
+            gsyst->SetPointEYhigh (i, hSum->GetBinError (i+1));   
+           }
+          }
           gsyst->SetFillColor (12);
           gsyst->SetFillStyle (3345);
           gsyst->SetMarkerSize (0);
           gsyst->SetLineWidth (0);
           gsyst->SetLineColor (kWhite);
-          gsyst->Draw ("E2same");
+          
+          if (_BandError != 0x0) {
+           _BandError -> SetFillColor (12);
+           _BandError -> SetFillStyle (3345);
+           _BandError -> SetMarkerSize (0);
+           _BandError -> SetLineWidth (0);
+           _BandError -> SetLineColor (kWhite);
+           _BandError -> Draw ("E2same");
+          }
+          else {
+           gsyst->Draw ("E2same");
+          }
           //TExec *setex1 = new TExec ("setex1","gStyle->SetErrorX (0)");
           //setex1->Draw ();
         }
@@ -551,9 +570,13 @@ void SetColorsAndLabels ()
 
 
         void setLumi (const float &l) { _lumi = l; }
+        
         void setLabel (const TString &s) { _xLabel = s; }
+        
         void setUnits (const TString &s) { _units = s; std::cout << " UNITS = " << s << std::endl;}
+        
         void setBreakdown (const bool &b = true) { _breakdown = b; }
+        
         void addLabel (const std::string &s) {
             _extraLabel = new TLatex (0.9, 0.74, TString (s));
             _extraLabel->SetNDC ();
@@ -563,7 +586,13 @@ void SetColorsAndLabels ()
             _extraLabels.push_back (TString (s.c_str ())) ;
         }
         void setIsHWWOverlaid (const bool &b = true) { _isHWWOverlaid = b; }
-
+        
+        void set_ErrorBand (TGraphAsymmErrors& grAE) {
+         std::cout << " TGraphAsymmErrors:: Error band"  << std::endl;
+         _BandError = ((TGraphAsymmErrors*) grAE.Clone());
+         
+        }
+        
     private: 
         std::vector<TH1F*> _hist;
         std::vector<TH1F*> _bkgHist ;
@@ -583,6 +612,7 @@ void SetColorsAndLabels ()
         Color_t * _sampleColor ; //PG list of colors for the samples
         Bool_t _isHWWOverlaid;
         std::vector<int> _position; //---- order to plot samples
+        TGraphAsymmErrors* _BandError; //---- error band from external input (from combine)
 };
 
 
