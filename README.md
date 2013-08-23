@@ -49,4 +49,4 @@ The available analysis categories for the plotting are the following:
 - nsel == 6 : VBF @ Higgs level
 - nsel == 7 : VH V > jj
 - nsel == 8 : ZH H > lvjj
-- nsel == 9 :
+- nsel == 9 : HWW main analysis, but with input error band 
