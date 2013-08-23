@@ -277,6 +277,9 @@ finalPlot (int nsel             = 0,
     myPlot.setIsHWWOverlaid(true);
     
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
+    myPlot._sampleLabel[iWgamma] = " W+#gamma/W+#gamma*";
+    myPlot._sampleLabel[iHWW] = " HWW";
+
   }
 
   //PG get the data histogram
