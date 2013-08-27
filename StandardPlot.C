@@ -543,14 +543,16 @@ void SetColorsAndLabels ()
       flag_cms->SetTextSize (_tsize);
       flag_cms->Draw ("same");
       
-      //PG the lumi label
-      TLatex* flag_lumi = new TLatex (xstart, ystart - dist * distTimes++, TString::Format ("L = %.1f fb#lower[0.3]{^{-1}}", _lumi)) ;
-      flag_lumi->SetNDC ();
-      flag_lumi->SetTextAlign (32);
-      flag_lumi->SetTextFont (42);
-      flag_lumi->SetTextSize (_tsize);
-      flag_lumi->Draw ("same");
-      
+      //PG the lumi label 
+      if( _lumi < 21. ) { // don't draw this for 7+8 TeV plots 
+          TLatex* flag_lumi = new TLatex (xstart, ystart - dist * distTimes++, TString::Format ("L = %.1f fb#lower[0.3]{^{-1}}", _lumi)) ;
+          flag_lumi->SetNDC ();
+          flag_lumi->SetTextAlign (32);
+          flag_lumi->SetTextFont (42);
+          flag_lumi->SetTextSize (_tsize);
+          flag_lumi->Draw ("same");
+      } 
+
       //PG the lumi label
       for (int i = 0 ; i < _extraLabels.size () ; ++i) 
         {
