@@ -188,10 +188,10 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
-    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "H"
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
-    myPlot._sampleLabel[iggH] = "H";
+    myPlot._sampleLabel[iggH] = "HWW";
     myPlot.setBreakdown(true);
     myPlot.setIsHWWOverlaid(true);
   
@@ -224,12 +224,12 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iWJets, (TH1F*) hWJets->Clone ("hWJets"));
     myPlot.setMCHist (iZJets, (TH1F*) hZJets->Clone("hZJets"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
-    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "H"
+    myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
 //     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
     myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
     myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
-    myPlot._sampleLabel[iggH] = "H";
+    myPlot._sampleLabel[iggH] = "HWW";
     myPlot.setBreakdown(true);
     myPlot.setIsHWWOverlaid(true);
     
