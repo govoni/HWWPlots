@@ -43,16 +43,27 @@ finalPlot (int nsel             = 0,
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
   myPlot.setSignalZoom (signalZoom) ;
-  if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
-  else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
-  else if(lumi ==   24.4) { myPlot.addLabel("4.9 fb^{-1} (7 TeV)"); 
-                            myPlot.addLabel("+ 19.5 fb^{-1} (8 TeV)"); } 
-                            // ---> followsing CMS official style
-  else if(lumi ==   4.91) myPlot.addLabel("SSSF #sqrt{s} = 7 TeV");
-  else if(lumi ==  19.51) myPlot.addLabel("SSSF #sqrt{s} = 8 TeV");
-  else if(lumi ==   4.92) myPlot.addLabel("OSSF #sqrt{s} = 7 TeV");
-  else if(lumi ==  19.52) myPlot.addLabel("OSSF #sqrt{s} = 8 TeV");
-  else                    myPlot.addLabel(""); 
+//  if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
+//  else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
+//  else if(lumi ==   24.4) { myPlot.addLabel("4.9 fb^{-1} (7 TeV)"); 
+//                            myPlot.addLabel("+ 19.5 fb^{-1} (8 TeV)"); } 
+//                            // ---> followsing CMS official style
+//  else if(lumi ==   4.91) myPlot.addLabel("SSSF #sqrt{s} = 7 TeV");
+//  else if(lumi ==  19.51) myPlot.addLabel("SSSF #sqrt{s} = 8 TeV");
+//  else if(lumi ==   4.92) myPlot.addLabel("OSSF #sqrt{s} = 7 TeV");
+//  else if(lumi ==  19.52) myPlot.addLabel("OSSF #sqrt{s} = 8 TeV");
+//  else                    myPlot.addLabel(""); 
+
+  if      (lumi ==    4.9) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
+  else if (lumi ==   19.5) myPlot.setLumiLabel ("19.5 fb^{-1} (8 TeV)");
+  else if (lumi ==   24.4) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV) + 19.5 fb^{-1} (8 TeV)"); 
+  else if (lumi ==   4.91) myPlot.setLumiLabel ("4.91 fb^{-1} (7 TeV)");
+  else if (lumi ==  19.51) myPlot.setLumiLabel ("19.51 fb^{-1} (8 TeV)");
+  else if (lumi ==   4.92) myPlot.setLumiLabel ("4.92 fb^{-1} (7 TeV)");
+  else if (lumi ==  19.52) myPlot.setLumiLabel ("19.52 fb^{-1} (8 TeV)");
+  else                     myPlot.setLumiLabel (""); 
+
+
   myPlot.setMass (MassH) ;
   myPlot.setUnits(units);
   myPlot.SetColorsAndLabels () ;
@@ -64,12 +75,12 @@ finalPlot (int nsel             = 0,
 
   TH1F* hWW     = (TH1F*) file->Get ("WW");
   TH1F* hZZ     = (TH1F*) file->Get ("ZZ");
-  TH1F* hFakes     = (TH1F*) file->Get ("fakes");
+  TH1F* hFakes  = (TH1F*) file->Get ("fakes");
   TH1F* hZJets  = (TH1F*) file->Get ("DY+jets");
   TH1F* hTop    = (TH1F*) file->Get ("top");
   TH1F* hVV     = (TH1F*) file->Get ("VV"); 
   TH1F* hVVV    = (TH1F*) file->Get ("VVV"); 
-  TH1F* hWZ    = (TH1F*) file->Get ("WZ"); 
+  TH1F* hWZ     = (TH1F*) file->Get ("WZ"); 
   TH1F* hWJets  = (TH1F*) file->Get ("W+jets");
   TH1F* hWg     = (TH1F*) file->Get ("Wg");
   TH1F* hWgs    = (TH1F*) file->Get ("Wgs");
@@ -409,7 +420,7 @@ finalPlot (int nsel             = 0,
     AxisFonts((TAxis*)diff->GetYaxis(), "y", "data / MC");
 
     TLine* oneLine = new TLine(diff->GetXaxis()->GetXmin(), 0,
-                   diff->GetXaxis()->GetXmax(), 0);
+                               diff->GetXaxis()->GetXmax(), 0);
 
     oneLine->SetLineStyle(3);
     oneLine->SetLineWidth(3);

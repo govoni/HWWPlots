@@ -71,7 +71,7 @@ void AxisFonts (TAxis*  axis,
     axis->SetTitleOffset (  1.5);
     axis->SetTitleSize (0.050);
 
-    if (coordinate == "y") axis->SetTitleOffset (1.6);
+    if (coordinate == "y") axis->SetTitleOffset (1.8);
 
     axis->SetTitle (title);
 }
@@ -535,23 +535,23 @@ void SetColorsAndLabels ()
       double xstart = 0.9 ;
       double ystart = 0.85 ;
   
-      //PG the CMS label
-      TLatex* flag_cms = new TLatex (xstart, ystart - dist * distTimes++, TString ("#bf{CMS}"));
-      flag_cms->SetNDC ();
-      flag_cms->SetTextAlign (32);
-      flag_cms->SetTextFont (42);
-      flag_cms->SetTextSize (_tsize);
-      flag_cms->Draw ("same");
+//      //PG the CMS label
+//      TLatex* flag_cms = new TLatex (xstart, ystart - dist * distTimes++, TString ("#bf{CMS}"));
+//      flag_cms->SetNDC ();
+//      flag_cms->SetTextAlign (32);
+//      flag_cms->SetTextFont (42);
+//      flag_cms->SetTextSize (_tsize);
+//      flag_cms->Draw ("same");
       
       //PG the lumi label 
-      if( _lumi < 21. ) { // don't draw this for 7+8 TeV plots 
-          TLatex* flag_lumi = new TLatex (xstart, ystart - dist * distTimes++, TString::Format ("L = %.1f fb#lower[0.3]{^{-1}}", _lumi)) ;
-          flag_lumi->SetNDC ();
-          flag_lumi->SetTextAlign (32);
-          flag_lumi->SetTextFont (42);
-          flag_lumi->SetTextSize (_tsize);
-          flag_lumi->Draw ("same");
-      } 
+//      if( _lumi < 21. ) { // don't draw this for 7+8 TeV plots 
+//          TLatex* flag_lumi = new TLatex (xstart, ystart - dist * distTimes++, TString::Format ("L = %.1f fb#lower[0.3]{^{-1}}", _lumi)) ;
+//          flag_lumi->SetNDC ();
+//          flag_lumi->SetTextAlign (32);
+//          flag_lumi->SetTextFont (42);
+//          flag_lumi->SetTextSize (_tsize);
+//          flag_lumi->Draw ("same");
+//      } 
 
       //PG the lumi label
       for (int i = 0 ; i < _extraLabels.size () ; ++i) 
@@ -564,6 +564,15 @@ void SetColorsAndLabels ()
           flag_extra->Draw ("same");
         }
 
+
+      TLatex * CMSLabel = new TLatex (0.18, 0.93, "CMS");
+      CMSLabel->SetNDC ();
+      CMSLabel->SetTextAlign (10);
+      CMSLabel->SetTextFont (42);
+      CMSLabel->SetTextSize (_tsize);
+      CMSLabel->Draw ("same") ;
+
+      _lumiLabel->Draw ("same") ;
       return hstack->GetHistogram () ;
     }
 
@@ -578,6 +587,14 @@ void SetColorsAndLabels ()
         void setUnits (const TString &s) { _units = s; std::cout << " UNITS = " << s << std::endl;}
         
         void setBreakdown (const bool &b = true) { _breakdown = b; }
+
+        void setLumiLabel (const std::string &s) {
+            _lumiLabel = new TLatex (0.95, 0.93, TString (s));
+            _lumiLabel->SetNDC ();
+            _lumiLabel->SetTextAlign (30);
+            _lumiLabel->SetTextFont (42);
+            _lumiLabel->SetTextSize (_tsize);
+        }
         
         void addLabel (const std::string &s) {
             _extraLabel = new TLatex (0.9, 0.74, TString (s));
@@ -606,11 +623,12 @@ void SetColorsAndLabels ()
         float    _lumi;          //PG lumi on the plot
         TString  _xLabel;        //PG label of the x axis
         TString  _units;         //PG units of the x axis
-        TLatex * _extraLabel;    //PG label with the centre of mass energy
+        TLatex * _lumiLabel;     //PG label with the centre of mass energy and lumi info
+        TLatex * _extraLabel;    //PG any additional labels to be put in the plot
         bool     _breakdown;     //PG 
         int      _mass;          //PG higgs mass
-        int      _signalZoom;    // PG signal scale factor for plotting and legenda writing
-        TString * _sampleLabel ; // PG list of labels for the samples
+        int      _signalZoom;    //PG signal scale factor for plotting and legenda writing
+        TString * _sampleLabel ; //PG list of labels for the samples
         Color_t * _sampleColor ; //PG list of colors for the samples
         Bool_t _isHWWOverlaid;
         std::vector<int> _position; //---- order to plot samples
