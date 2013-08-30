@@ -1,7 +1,7 @@
-root -l -q HWWPlots/finalPlot.C+'(0,1,"m_{\ell\ell}","GeV","rootFiles/hww_mll_0j.root","m_ll_0j",0,125,24.4,1,1)';                                            # fig 1 left
-root -l -q HWWPlots/finalPlot.C+'(0,1,"m_{\ell\ell}","GeV","rootFiles/hww_mll_1j.root","m_ll_1j",0,125,24.4,1,1)';                                            # fig 1 right
-root -l -q HWWPlots/finalPlot.C+'(5,1,"#Delta#eta_{jj}","","rootFiles/detajj-WW-2j.root","delta_eta_jj",0,125,19.5,1,100)';                             # fig 2 left
-root -l -q HWWPlots/finalPlot.C+'(5,1,"m_{jj}","GeV","rootFiles/mjj-WW-2j.root","m_jj",0,125,19.5,1,100)';                                              # fig 2 right
+root -l -q HWWPlots/finalPlot.C+'(0,1,"m_{\ell\ell}","GeV","rootFiles/hww_mll_0j.root","wwpresel_0j_mh125_massll",0,125,24.4,1,1)';                                            # fig 1 left
+root -l -q HWWPlots/finalPlot.C+'(0,1,"m_{\ell\ell}","GeV","rootFiles/hww_mll_1j.root","wwpresel_1j_mh125_massll",0,125,24.4,1,1)';                                            # fig 1 right
+root -l -q HWWPlots/finalPlot.C+'(5,1,"#Delta#eta_{jj}","","rootFiles/detajj-WW-2j.root","detajj",0,125,19.5,1,100)';                             # fig 2 left
+root -l -q HWWPlots/finalPlot.C+'(5,1,"m_{jj}","GeV","rootFiles/mjj-WW-2j.root","mjj",0,125,19.5,1,100)';                                              # fig 2 right
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mT.root",  "st_mT",  0, 125, 24.4, 1, 1)';             # fig 6 left
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{\ell\ell}", "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mll.root", "st_mll", 0, 125, 24.4, 1, 1)';             # fig 7 left
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{\ell\ell}", "GeV","rootFiles/plotrootfile_CR1_mll_0j.root", "mll_CR1", 0,125,19.5,1,1)';                            # fig 8 top right
@@ -10,9 +10,9 @@ root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR2_mT_0j.root",  "mT_CR2",  0,125,19.5,1,1)';                            # fig 8 bottom left
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{\ell\ell}", "GeV", "rootFiles/plotrootfile_SS_mll_0j.root", "SS_mll_0j", 0, 125, 24.4, 1, 1)';                      # fig 9 left
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_Top_mt_1j.root", "Top_mt_1j", 0, 125, 24.4, 1, 1)';                      # fig 9 right
-root -l -q HWWPlots/finalPlot.C+'(6,1,"m_{\ell\ell}","GeV","rootFiles/mll-VBF-2011.root","mll_vbf_2011",0,125,4.9,1,1)';                                      # fig 10 left
-root -l -q HWWPlots/finalPlot.C+'(6,1,"m_{\ell\ell}","GeV","rootFiles/mll-VBF-2012.root","mll_vbf_2012",0,125,19.5,1,1)';                                     # fig 10 right
-root -l -q HWWPlots/finalPlot.C+'(7,1,"m_{\ell\ell}","GeV","rootFiles/mll-VH-2012.root","mll_vh",0,125,19.5,1,1)';                                            # fig 12
+root -l -q HWWPlots/finalPlot.C+'(6,1,"m_{\ell\ell}","GeV","rootFiles/mll-VBF-2011.root","Mll_prefit_zoom_7TeV",0,125,4.9,1,1)';                                      # fig 10 left
+root -l -q HWWPlots/finalPlot.C+'(6,1,"m_{\ell\ell}","GeV","rootFiles/mll-VBF-2012.root","Mll_prefit_zoom_8TeV",0,125,19.5,1,1)';                                     # fig 10 right
+root -l -q HWWPlots/finalPlot.C+'(7,1,"m_{\ell\ell}","GeV","rootFiles/mll-VH-2012.root","histo_mll_aftershapecuts_osof_8tev",0,125,19.5,1,1)';                                            # fig 12
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_of_0j.root",    "topcontrol_mT_of_0j",   0,125,19.5,1,1)'; # fig 30 right
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{\ell\ell}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_of_0j.root",   "topcontrol_mll_of_0j",  0,125,19.5,1,1)'; # fig 30 left
 root -b -q HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_of_1j.root",    "topcontrol_mT_of_1j",   0,125,19.5,1,1)'; # fig 31 right
