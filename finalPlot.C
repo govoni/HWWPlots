@@ -329,7 +329,7 @@ finalPlot (int nsel             = 0,
   //std::cout << hggH->GetSumOfWeights() << " " << hqqH->GetSumOfWeights() << " " << hVH->GetSumOfWeights() << std::endl;
 
   char CommandToExec[300];
-  sprintf(CommandToExec,"mkdir plots");
+  sprintf(CommandToExec,"mkdir -p plots");
   gSystem->Exec(CommandToExec);  
 
   char myOutputFile[300];

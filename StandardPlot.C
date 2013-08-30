@@ -159,7 +159,7 @@ class StandardPlot {
               }
             else  
               {
-                std::cout << "DEBUG reading singal\n" ;
+                std::cout << "DEBUG reading signal\n" ;
                 _sigHist[s] = h ;
               }
           } 
@@ -554,7 +554,7 @@ void SetColorsAndLabels ()
 //      } 
 
       //PG the lumi label
-      for (int i = 0 ; i < _extraLabels.size () ; ++i) 
+      for (unsigned int i = 0 ; i < _extraLabels.size () ; ++i) 
         {
           TLatex* flag_extra = new TLatex (xstart, ystart - dist * distTimes++, _extraLabels.at (i)) ;
           flag_extra->SetNDC ();
