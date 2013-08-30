@@ -576,7 +576,7 @@ void SetColorsAndLabels ()
         }
 
 
-      TLatex * CMSLabel = new TLatex (0.18, 0.93, "CMS");
+      TLatex * CMSLabel = new TLatex (0.18, 0.93, "#bf{CMS}");
       CMSLabel->SetNDC ();
       CMSLabel->SetTextAlign (10);
       CMSLabel->SetTextFont (42);
