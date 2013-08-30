@@ -134,7 +134,7 @@ finalPlot (int nsel             = 0,
     if (hqqH != 0) hHWW->Add (hqqH) ;
     if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
-    //myPlot.setIsHWWOverlaid(true);
+    myPlot.setIsHWWOverlaid(true);
 
   }
   // nsel == 2 means VH > 3 leptons
