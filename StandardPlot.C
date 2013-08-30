@@ -469,7 +469,7 @@ void SetColorsAndLabels ()
       }
 
       if (_breakdown) {
-          THStackAxisFonts (hstack, "y", "Entries / bin");
+          THStackAxisFonts (hstack, "y", "Events / bin");
           hstack->GetHistogram ()->LabelsOption ("v");
           if (_units.Sizeof () != 1) {
            THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));           
@@ -478,12 +478,12 @@ void SetColorsAndLabels ()
           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));
           if (_units.Sizeof () == 1) {
               THStackAxisFonts (hstack, "x", _xLabel.Data ());
-//               THStackAxisFonts (hstack, "y", "Entries / bin");
-              THStackAxisFonts (hstack, "y", TString::Format ("Entries / %.1f", _data->GetBinWidth (0)));
+//               THStackAxisFonts (hstack, "y", "Events / bin");
+              THStackAxisFonts (hstack, "y", TString::Format ("Events / %.1f", _data->GetBinWidth (0)));
           } else {
               THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));
-              if (_data->GetBinWidth (0) < 1) THStackAxisFonts (hstack, "y", TString::Format ("Entries / %.1f %s", _data->GetBinWidth (0),_units.Data ()));
-              else                            THStackAxisFonts (hstack, "y", TString::Format ("Entries / %.0f %s", _data->GetBinWidth (0),_units.Data ()));
+              if (_data->GetBinWidth (0) < 1) THStackAxisFonts (hstack, "y", TString::Format ("Events / %.1f %s", _data->GetBinWidth (0),_units.Data ()));
+              else                            THStackAxisFonts (hstack, "y", TString::Format ("Events / %.0f %s", _data->GetBinWidth (0),_units.Data ()));
           }
       }
 
