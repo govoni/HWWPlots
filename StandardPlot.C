@@ -71,7 +71,14 @@ void AxisFonts (TAxis*  axis,
     axis->SetTitleOffset (  1.5);
     axis->SetTitleSize (0.050);
 
-    if (coordinate == "y") axis->SetTitleOffset (1.8);
+    if (coordinate == "y") 
+      {
+        axis->SetTitleOffset (1.8);
+        TString titolo = axis->GetTitle () ;
+        titolo.ReplaceAll ("Entries", "Events") ;
+        axis->SetTitle (titolo) ;
+      
+      }
 
     axis->SetTitle (title);
 }
@@ -314,9 +321,10 @@ void SetColorsAndLabels ()
       hSum->Scale (0.0);
 
       //PG fill the THStack
-      for (int itemp = 0 ; itemp < nSamples ; itemp++) {
+      for (int itemp = 0 ; itemp < nSamples ; itemp++) 
+        {
        
-       int i = _position.at(itemp);
+          int i = _position.at(itemp);
        
           if (_bkgHist[i] == 0) 
             {
@@ -350,8 +358,12 @@ void SetColorsAndLabels ()
           _hist[i]->SetFillColor (_sampleColor[i]);
           _hist[i]->SetFillStyle (1001);
     
-	  //---- the signal
-	  if (i==13 || i==14 || i==15 || i==16) _hist[i]->SetFillStyle (3004);
+	      //---- the signal
+          if (i==13 || i==14 || i==15 || i==16) 
+            {
+              _hist[i]->SetLineWidth (3);
+              _hist[i]->SetFillStyle (0);
+            }
 	   
           TH1F* temp_hist = (TH1F*) _hist[i]->Clone();
           hstack->Add (temp_hist);
@@ -496,8 +508,7 @@ void SetColorsAndLabels ()
       if (_data         ) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _data,          " data",    "lp"); j++; }
 
       //PG signals
-      TString signalLegendRepr = "f" ;
-      if (!_isHWWOverlaid) signalLegendRepr = "l" ;      
+      TString signalLegendRepr = "l" ;
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
       else { 
 	//---- or HWW all together xor separate components
