@@ -19,3 +19,10 @@ root -b -q finalPlot.C+'(9,1,"m_{T}",   "GeV","../plotrootfile_topcontrol_mT_of_
 root -b -q finalPlot.C+'(9,1,"m_{ll}",  "GeV","../plotrootfile_topcontrol_mll_of_1j.root",   "topcontrol_mll_of_1j",  0,125,19.5,1,1)'; # fig 31 left
 root -b -q finalPlot.C+'(9,1,"m_{T}",   "GeV","../plotrootfile_topcontrol_mT_incl_2j.root",  "topcontrol_mT_incl_2j", 0,125,19.5,1,1)'; # fig 32 right
 root -b -q finalPlot.C+'(9,1,"m_{ll}",  "GeV","../plotrootfile_topcontrol_mll_incl_2j.root", "topcontrol_mll_incl_2j",0,125,19.5,1,1)'; # fig 32 left
+
+# root -b -q finalPlot.C+'(9,1,"#Delta R(l^{+}l^{-})", "", "../histo_drmin_afterallothercuts_sssf_8tev_new.root", "histo_drmin_afterallothercuts_sssf_8tev",     0,125,19.51,1,1)' ;
+# root -b -q finalPlot.C+'(9,1,"#Delta R(l^{+}l^{-})", "", "../histo_drmin_afterallothercuts_sssf_7tev_new.root", "histo_drmin_afterallothercuts_sssf_7tev",     0,125,4.91,1,1)' ;
+# root -b -q finalPlot.C+'(9,1,"#Delta R(l^{+}l^{-})", "", "../histo_drmin_afterallothercuts_ossf_8tev_new.root", "histo_drmin_afterallothercuts_ossf_8tev_new", 0,125,19.52,1,1)' ;
+# root -b -q finalPlot.C+'(9,1,"#Delta R(l^{+}l^{-})", "", "../histo_drmin_afterallothercuts_ossf_7tev_new.root", "histo_drmin_afterallothercuts_ossf_7tev_new", 0,125,4.92,1,1)' ;
+
+
