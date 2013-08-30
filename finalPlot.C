@@ -298,6 +298,26 @@ finalPlot (int nsel             = 0,
     myPlot._sampleLabel[iHWW] = " HWW";
 
   }
+  else if(nsel == 10) { // main analysis with input error band(error), no signal component
+    std::cout << "nsel = " << nsel << ", main analysis control" << std::endl ;
+    if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
+    if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
+    if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
+    if(hVV->GetSumOfWeights()    > 0) myPlot.setMCHist(iVV,      (TH1F*)hVV   ->Clone("hVV")); 
+    if(hWJets->GetSumOfWeights() > 0) myPlot.setMCHist(iWJets,   (TH1F*)hWJets->Clone("hWJets"));
+    if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWg->Clone("hWg")); 
+    // --> Wg means Wgamma + Wgamma*
+    if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWgs->Clone("hWgs"));
+    //TH1F* hHWW     = (TH1F*) hggH->Clone ("hggH");
+    //if (hqqH != 0) hHWW->Add (hqqH) ;
+    //if (hVH != 0)  hHWW->Add (hVH) ;
+    //myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
+    //myPlot.setIsHWWOverlaid(true);
+    
+    myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
+    myPlot._sampleLabel[iWgamma] = " W+#gamma/W+#gamma*";
+    myPlot._sampleLabel[iHWW] = " HWW";
+  }
 
   //PG get the data histogram
   //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 

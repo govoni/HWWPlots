@@ -50,3 +50,4 @@ The available analysis categories for the plotting are the following:
 - nsel == 7 : VH V > jj
 - nsel == 8 : ZH H > lvjj
 - nsel == 9 : HWW main analysis, but with input error band 
+- nsel == 10 : HWW main analysis, but with input error band, no signal thus no signal legend

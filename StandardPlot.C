@@ -510,6 +510,9 @@ void SetColorsAndLabels ()
       //PG signals
       TString signalLegendRepr = "l" ;
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
+      else if (_hist[iggH      ]==0x0 && _hist[iVBF      ]==0x0 && _hist[iVH      ]==0x0) {  
+          //---- do nothing  
+      }
       else { 
 	//---- or HWW all together xor separate components
         if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
