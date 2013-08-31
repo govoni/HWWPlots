@@ -502,35 +502,38 @@ void SetColorsAndLabels ()
       //PG plotting the legend
       //PG ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
       
-      size_t j=0;
-
-      //PG data
-      if (_data         ) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _data,          " data",    "lp"); j++; }
-
-      //PG signals
       TString signalLegendRepr = "l" ;
+      
+      int j=0;
+      
+      // data: check if there is "data" (just once, j==0)
+      if (_data ) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _data,          " data",    "lp"); j++; }
+      
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
       else { 
-	//---- or HWW all together xor separate components
-        if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
-        if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; } else j++;
-        if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; } else j++;
+       //---- or HWW all together xor separate components
+       if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
+       if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; } else j++;
+       if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; } else j++;
       }
-      //PG backgrounds
-      if (_hist[iWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWW      ], _sampleLabel [iWW      ], "f" ); j++; }
-      if (_hist[iZJets   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZJets   ], _sampleLabel [iZJets   ], "f" ); j++; }
-      if (_hist[iTop     ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iTop     ], _sampleLabel [iTop     ], "f" ); j++; }
-      if (_hist[iVV      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVV      ], _sampleLabel [iVV      ], "f" ); j++; }
-      if (_hist[iWJets   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWJets   ], _sampleLabel [iWJets   ], "f" ); j++; }
-      if (_hist[iWZ      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWZ      ], _sampleLabel [iWZ      ], "f" ); j++; }
-      if (_hist[iZZ      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZZ      ], _sampleLabel [iZZ      ], "f" ); j++; }
-      if (_hist[iVVV     ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVVV     ], _sampleLabel [iVVV     ], "f" ); j++; }
-      if (_hist[iEM      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iEM      ], _sampleLabel [iEM      ], "f" ); j++; }
-      if (_hist[iZGamma  ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iZGamma  ], _sampleLabel [iZGamma  ], "f" ); j++; }
-      if (_hist[iFakes   ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iFakes   ], _sampleLabel [iFakes   ], "f" ); j++; }
-      if (_hist[iWgamma  ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgamma  ], _sampleLabel [iWgamma  ], "f" ); j++; }
-      if (_hist[iWgammaS ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iWgammaS ], _sampleLabel [iWgammaS ], "f" ); j++; }
+      
+      int counterPosition = j;
+      for ( j=(nSamples-1); j>=0 ; j--) {
+//        for (j=0; j < nSamples ; j++) {
+       
+//        std::cout << " j = " << j << " counterPosition = " << counterPosition << std::endl;
+       int jSample = _position.at(j);
+//        std::cout << " jSample = " << jSample << " j = " << j << " counterPosition = " << counterPosition << std::endl;
+       // signals: check if they are signals: signals must be plotted on top!
+       if (jSample==iHWW || jSample==iggH || jSample==iVBF || jSample==iVH) continue;
 
+       // backgrounds
+       if (_hist[jSample      ]) { DrawLegend (xPos[counterPosition], 0.84 - yOff[counterPosition]*_yoffset, _hist[jSample      ], _sampleLabel [jSample      ], "f" ); counterPosition++;}
+       
+      }
+      
+      std::cout << " ended " << std::endl;
+      
 //      //PG the "CMS" flag
 //      TPaveText *pt = new TPaveText (0.61,0.8337762,0.9408059,0.8862238,"blNDC");
 //      pt->SetName ("title");
