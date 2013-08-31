@@ -510,6 +510,9 @@ void SetColorsAndLabels ()
       if (_data ) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _data,          " data",    "lp"); j++; }
       
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
+      else if (_hist[iggH      ]==0x0 && _hist[iVBF      ]==0x0 && _hist[iVH      ]==0x0) {  
+          //---- do nothing  
+      }
       else { 
        //---- or HWW all together xor separate components
        if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
@@ -579,7 +582,7 @@ void SetColorsAndLabels ()
         }
 
 
-      TLatex * CMSLabel = new TLatex (0.18, 0.93, "CMS");
+      TLatex * CMSLabel = new TLatex (0.18, 0.93, "#bf{CMS}");
       CMSLabel->SetNDC ();
       CMSLabel->SetTextAlign (10);
       CMSLabel->SetTextFont (42);
