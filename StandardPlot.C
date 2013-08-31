@@ -511,9 +511,13 @@ void SetColorsAndLabels ()
       
       if (_hist[iHWW      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iHWW      ], _sampleLabel [iHWW      ], signalLegendRepr); j++; } 
       else if (_hist[iggH      ]==0x0 && _hist[iVBF      ]==0x0 && _hist[iVH      ]==0x0) {  
-          //---- do nothing  
+          //---- do nothing : there is no signal at all!
       }
-      else { 
+      else if (_hist[iVH]!=0x0 && _hist[iggH]==0x0 && _hist[iVBF]==0x0){
+       //---- if there is only VH (3l case)
+       if (_hist[iVH       ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVH       ], _sampleLabel [iVH       ], signalLegendRepr); j++; j++; j++; }
+      }
+      else {
        //---- or HWW all together xor separate components
        if (_hist[iggH      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iggH      ], _sampleLabel [iggH      ], signalLegendRepr); j++; } else j++;
        if (_hist[iVBF      ]) { DrawLegend (xPos[j], 0.84 - yOff[j]*_yoffset, _hist[iVBF      ], _sampleLabel [iVBF      ], signalLegendRepr); j++; } else j++;
