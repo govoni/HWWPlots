@@ -299,7 +299,7 @@ finalPlot (int nsel             = 0,
 
   }
   else if(nsel == 10) { // main analysis with input error band(error), no signal component
-    std::cout << "nsel = " << nsel << ", main analysis control" << std::endl ;
+    std::cout << "nsel = " << nsel << ", main analysis stacked plots for data - bkg" << std::endl ;
     if(hWW->GetSumOfWeights(   ) > 0) myPlot.setMCHist(iWW,      (TH1F*)hWW   ->Clone("hWW"));
     if(hZJets->GetSumOfWeights() > 0) myPlot.setMCHist(iZJets,   (TH1F*)hZJets->Clone("hZJets"));
     if(hTop->GetSumOfWeights()   > 0) myPlot.setMCHist(iTop,     (TH1F*)hTop  ->Clone("hTop"));
@@ -308,12 +308,13 @@ finalPlot (int nsel             = 0,
     if(hWg->GetSumOfWeights()    > 0) myPlot.setMCHist(iWgamma,  (TH1F*)hWg->Clone("hWg")); 
     // --> Wg means Wgamma + Wgamma*
     if(hWgs->GetSumOfWeights()   > 0) myPlot.setMCHist(iWgammaS, (TH1F*)hWgs->Clone("hWgs"));
-    //TH1F* hHWW     = (TH1F*) hggH->Clone ("hggH");
-    //if (hqqH != 0) hHWW->Add (hqqH) ;
-    //if (hVH != 0)  hHWW->Add (hVH) ;
-    //myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
-    //myPlot.setIsHWWOverlaid(true);
-    
+    TH1F* hHWW     = (TH1F*) hggH->Clone ("hggH");
+    if (hqqH != 0) hHWW->Add (hqqH) ;
+    if (hVH != 0)  hHWW->Add (hVH) ;
+    myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
+    myPlot.setIsHWWOverlaid(true);
+    myPlot.setBreakdown(true);
+
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
     myPlot._sampleLabel[iWgamma] = " W+#gamma/W+#gamma*";
     myPlot._sampleLabel[iHWW] = " HWW";
