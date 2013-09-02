@@ -22,6 +22,8 @@ root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","ro
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_incl_2j.root",  "topcontrol_mT_incl_2j", 0,125,19.5,0,1)'; # fig 32 right
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_incl_2j.root", "topcontrol_mll_incl_2j",0,125,19.5,0,1)'; # fig 32 left
 
+root -q -b HWWPlots/finalPlot.C+'(2,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/histo_wg3l_mll_all_new.root", "wg3l_mll",0,999,24.4,0,1)'; # fig 30 left
+
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_ossf_7tev_new.root","histo_drmin_afterallothercuts_ossf_7tev",1,125,4.91,0,1)'; # fig 14
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_sssf_7tev_new.root","histo_drmin_afterallothercuts_sssf_7tev",1,125,4.92,0,1)'; # fig 14
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_ossf_8tev_new.root","histo_drmin_afterallothercuts_ossf_8tev",1,125,19.51,0,1)'; # fig 14
@@ -61,5 +63,5 @@ if [ $1 == 1 ]; then
   mv plots/topcontrol_mT_of_1j.pdf                       $MAINDIR/control/topcontrol_mT_of_1j.pdf;
   mv plots/topcontrol_mll_incl_2j.pdf                    $MAINDIR/control/topcontrol_mll_incl_2j.pdf;
   mv plots/topcontrol_mT_incl_2j.pdf                     $MAINDIR/control/topcontrol_mT_incl_2j.pdf;
-
+  mv plots/wg3l_mll.pdf                                  $MAINDIR/control/wg3l_mll.pdf;
 fi

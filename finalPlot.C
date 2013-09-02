@@ -43,7 +43,7 @@ finalPlot (int nsel             = 0,
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
   myPlot.setSignalZoom (signalZoom) ;
-  myPlot.setMass (MassH) ;
+  if(MassH != 999) myPlot.setMass (MassH); // not used for WG*
 //  if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
 //  else if(lumi ==   19.5) myPlot.addLabel("#sqrt{s} = 8 TeV");
 //  else if(lumi ==   24.4) { myPlot.addLabel("4.9 fb^{-1} (7 TeV)"); 
@@ -143,6 +143,8 @@ finalPlot (int nsel             = 0,
     TH1F* hZGamma = (TH1F*)file->Get("histo6");
     if(hZGamma->GetSumOfWeights() > 0) myPlot.setMCHist(iZGamma, (TH1F*)hZGamma->Clone("hZGamma"));
 
+    if (hWgs)    myPlot.setMCHist(iWgammaS, (TH1F*)hWgs->Clone("hWgs"));
+
     //myPlot.setMCHist(iWW,    (TH1F*)hWW   ->Clone("hWW"));
     //myPlot.setMCHist(iZJets, (TH1F*)hZJets->Clone("hZJets"));
     myPlot.setMCHist(iZZ,    (TH1F*)hTop  ->Clone("hTop"));
@@ -151,7 +153,7 @@ finalPlot (int nsel             = 0,
     TH1F* hHWW     = (TH1F*) hggH->Clone ("hWW");
     if (hqqH != 0) hHWW->Add (hqqH) ;
     if (hVH != 0)  hHWW->Add (hVH) ;
-    myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
+    if (hHWW ->GetSumOfWeights() > 0)  myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
   }
   else if (nsel == 4) {
     myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
