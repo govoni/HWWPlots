@@ -31,7 +31,6 @@ root -b -q HWWPlots/finalPlot.C+'(8,1,"Reconstructed mass","GeV","rootFiles/ZH_h
 root -b -q HWWPlots/finalPlot.C+'(8,1,"Reconstructed mass","GeV","rootFiles/ZH_histos_7TeV.root","histo_mh_7tev",0,125,4.9,0,10)'; # fig 16
 root -b -q HWWPlots/finalPlot.C+'(8,1,"Reconstructed mass","GeV","rootFiles/ZH_histos_8TeV.root","histo_mh_8tev",0,125,19.5,0,10)'; # fig 16
 
-
 root -b -q HWWPlots/finalPlot.C+'(9, 1, "m_{T}","GeV","rootFiles/plotrootfile_stackdataminusbkg_mT.root","fig6", 0, 125, 24.4, 0, 1)'; # fig 6
 root -b -q HWWPlots/finalPlot.C+'(9, 1, "m_{\\ell\\ell}","GeV","rootFiles/plotrootfile_stackdataminusbkg_mll.root","fig7", 0, 125, 24.4, 0, 1)'; # fig 7
 
