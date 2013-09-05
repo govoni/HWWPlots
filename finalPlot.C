@@ -58,10 +58,10 @@ finalPlot (int nsel             = 0,
   if      (lumi ==    4.9) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
   else if (lumi ==   19.4) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
   else if (lumi ==   24.4) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV) + 19.4 fb^{-1} (8 TeV)"); 
-  else if (lumi ==   4.91) myPlot.setLumiLabel ("4.91 fb^{-1} (7 TeV)");
-  else if (lumi ==  19.41) myPlot.setLumiLabel ("19.41 fb^{-1} (8 TeV)");
-  else if (lumi ==   4.92) myPlot.setLumiLabel ("4.92 fb^{-1} (7 TeV)");
-  else if (lumi ==  19.42) myPlot.setLumiLabel ("19.42 fb^{-1} (8 TeV)");
+  else if (lumi ==   4.91) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
+  else if (lumi ==  19.41) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
+  else if (lumi ==   4.92) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
+  else if (lumi ==  19.42) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
   else                     myPlot.setLumiLabel (""); 
 
   if      (lumi ==   4.91) myPlot.addLabel ("SSSF");
