@@ -24,8 +24,9 @@ finalPlot (int nsel             = 0,
            int MassH            = 160, 
            double lumi          = 4.6, 
            bool doDataMCRatio   = true, 
-           int signalZoom       = 1
-  ) 
+           int signalZoom       = 1,
+	   int labelType        = 0
+  )
 {
   
   gInterpreter->ExecuteMacro("GoodStyle.C");
@@ -44,30 +45,24 @@ finalPlot (int nsel             = 0,
   myPlot.setLabel(XTitle);
   myPlot.setSignalZoom (signalZoom) ;
   if(MassH != 999) myPlot.setMass (MassH); // not used for WG*
-//  if     (lumi ==    4.9) myPlot.addLabel("#sqrt{s} = 7 TeV");
-//  else if(lumi ==   19.4) myPlot.addLabel("#sqrt{s} = 8 TeV");
-//  else if(lumi ==   24.4) { myPlot.addLabel("4.9 fb^{-1} (7 TeV)"); 
-//                            myPlot.addLabel("+ 19.4 fb^{-1} (8 TeV)"); } 
-//                            // ---> followsing CMS official style
-//  else if(lumi ==   4.91) myPlot.addLabel("SSSF #sqrt{s} = 7 TeV");
-//  else if(lumi ==  19.41) myPlot.addLabel("SSSF #sqrt{s} = 8 TeV");
-//  else if(lumi ==   4.92) myPlot.addLabel("OSSF #sqrt{s} = 7 TeV");
-//  else if(lumi ==  19.42) myPlot.addLabel("OSSF #sqrt{s} = 8 TeV");
-//  else                    myPlot.addLabel(""); 
 
   if      (lumi ==    4.9) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
   else if (lumi ==   19.4) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
   else if (lumi ==   24.4) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV) + 19.4 fb^{-1} (8 TeV)"); 
-  else if (lumi ==   4.91) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
-  else if (lumi ==  19.41) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
-  else if (lumi ==   4.92) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV)");
-  else if (lumi ==  19.42) myPlot.setLumiLabel ("19.4 fb^{-1} (8 TeV)");
   else                     myPlot.setLumiLabel (""); 
 
-  if      (lumi ==   4.91) myPlot.addLabel ("SSSF");
-  else if (lumi ==  19.41) myPlot.addLabel ("SSSF");
-  else if (lumi ==   4.92) myPlot.addLabel ("OSSF");
-  else if (lumi ==  19.42) myPlot.addLabel ("OSSF");
+  if      (labelType ==  1) myPlot.addLabel ("3l3#nu SSSF");
+  else if (labelType ==  2) myPlot.addLabel ("3l3#nu OSSF");
+  else if (labelType ==  3) myPlot.addLabel ("e#mu 0-jet");
+  else if (labelType ==  4) myPlot.addLabel ("e#mu 1-jet");
+  else if (labelType ==  5) myPlot.addLabel ("2-jets");
+  else if (labelType ==  6) myPlot.addLabel ("e#mu 0/1-jet");
+  else if (labelType ==  7) myPlot.addLabel ("e#mu VBF 2-jets");
+  else if (labelType ==  8) myPlot.addLabel ("e#mu non-VBF 2-jets");
+  else if (labelType ==  9) myPlot.addLabel ("0-jet");
+  else if (labelType == 10) myPlot.addLabel ("1-jet");
+  else if (labelType == 11) myPlot.addLabel ("W+#gamma^{*} selection");
+  else if (labelType == 12) myPlot.addLabel ("3l#nu2q");
 
   myPlot.setUnits(units);
   myPlot.SetColorsAndLabels () ;
@@ -172,9 +167,9 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));    // x
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
-    myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
-    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
-    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
+//     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
+    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
 //     myPlot.setIsHWWOverlaid(true);
 
     myPlot._position[0]  = iVV;
@@ -206,10 +201,10 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
-    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
-    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
-    myPlot._sampleLabel[iggH] = "HWW";
-    myPlot.setBreakdown(true);
+    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
+    myPlot._sampleLabel[iggH] = "H #rightarrow WW";
+    myPlot.setBreakdown(1);
     myPlot.setIsHWWOverlaid(true);
   
     myPlot._position[0]  = iVV;
@@ -244,10 +239,10 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
 //     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
-    myPlot._sampleLabel[iWgamma] = "V+#gamma/V+#gamma*";
-    myPlot._sampleLabel[iVV] = "WZ/ZZ/VVV";
-    myPlot._sampleLabel[iggH] = "HWW";
-    myPlot.setBreakdown(true);
+    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
+    myPlot._sampleLabel[iggH] = "H #rightarrow WW";
+    myPlot.setBreakdown(1);
     myPlot.setIsHWWOverlaid(true);
     
     myPlot._position[0]  = iVV;
@@ -277,7 +272,7 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iWZ,   (TH1F*) hWZ->Clone("hWZ"));
     myPlot.setMCHist (iFakes, (TH1F*) hFakes  ->Clone("hFakes"));
     myPlot.setMCHist (iVH,    (TH1F*) hVH  ->Clone ("hVH"));
-    myPlot._sampleLabel[iWZ    ] = " WZ/VVV";
+    myPlot._sampleLabel[iWZ    ] = " WZ+VVV";
   }
   else if(nsel == 9) { // main analysis with input error band(error)
     std::cout << "nsel = " << nsel << ", main analysis stacked plots for data - bkg" << std::endl ;
@@ -296,8 +291,8 @@ finalPlot (int nsel             = 0,
     myPlot.setIsHWWOverlaid(true);
     
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = " W+#gamma/W+#gamma*";
-    myPlot._sampleLabel[iHWW] = " HWW";
+    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
 
   }
   else if(nsel == 10) { // main analysis with input error band(error), no signal component
@@ -315,11 +310,11 @@ finalPlot (int nsel             = 0,
     if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
     myPlot.setIsHWWOverlaid(true);
-    myPlot.setBreakdown(true);
+    myPlot.setBreakdown(2);
 
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = " W+#gamma/W+#gamma*";
-    myPlot._sampleLabel[iHWW] = " HWW";
+    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
   }
 
   //PG get the data histogram

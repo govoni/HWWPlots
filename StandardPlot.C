@@ -138,7 +138,7 @@ class StandardPlot {
             _bkgHist.resize (nSamples, 0); 
             _sigHist.resize (nSamples, 0); 
             _data = 0; 
-            _breakdown = false; 
+            _breakdown = 0; 
             _mass = 0; 
             _signalZoom = 1; 
             _isHWWOverlaid = false;
@@ -200,9 +200,9 @@ void SetColorsAndLabels ()
     TString higgsLabel ;
     if (_signalZoom > 1) 
       {
-        higgsLabel.Form ("%d x HWW",_signalZoom);
+        higgsLabel.Form ("%d x H #rightarrow WW",_signalZoom);
         _sampleLabel[iHWW    ] = higgsLabel ;
-        higgsLabel.Form ("%d x qqH",_signalZoom);
+        higgsLabel.Form ("%d x VBF",_signalZoom);
         _sampleLabel[iVBF    ] = higgsLabel ;
         higgsLabel.Form ("%d x ggH",_signalZoom);
         _sampleLabel[iggH    ] = higgsLabel ;
@@ -211,9 +211,9 @@ void SetColorsAndLabels ()
       }
     else                 
       {
-        higgsLabel.Form ("HWW");
+        higgsLabel.Form ("H #rightarrow WW");
         _sampleLabel[iHWW  ] = higgsLabel ;
-        higgsLabel.Form ("qqH");
+        higgsLabel.Form ("VBF");
         _sampleLabel[iVBF  ] = higgsLabel ;
         higgsLabel.Form ("ggH");
         _sampleLabel[iggH  ] = higgsLabel ;
@@ -224,12 +224,12 @@ void SetColorsAndLabels ()
     _sampleLabel[iWW     ] = " WW"            ;
     _sampleLabel[iZJets  ] = " DY+jets"       ;
     _sampleLabel[iTop    ] = " top"           ;
-    _sampleLabel[iVV     ] = " WZ/ZZ/VVV"     ;
+    _sampleLabel[iVV     ] = " WZ+ZZ+VVV"     ;
     _sampleLabel[iWJets  ] = " W+jets"        ;
     _sampleLabel[iWZ     ] = " WZ"            ;
     _sampleLabel[iZZ     ] = " ZZ"            ;
     _sampleLabel[iVVV    ] = " VVV"           ;
-    _sampleLabel[iEM     ] = " WW/top/W+jets" ;
+    _sampleLabel[iEM     ] = " WW+top+W+jets" ;
     _sampleLabel[iZGamma ] = " Z+#gamma"      ;
     _sampleLabel[iFakes  ] = " fakes"         ;
     _sampleLabel[iWgammaS] = " W+#gamma^{*}" ;
@@ -481,13 +481,21 @@ void SetColorsAndLabels ()
         hstack->SetMaximum (1.55 * theMax);
       }
 
-      if (_breakdown) {
+      if     (_breakdown == 1) {
           THStackAxisFonts (hstack, "y", "Events / bin");
           hstack->GetHistogram ()->LabelsOption ("v");
           if (_units.Sizeof () != 1) {
            THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));           
           }
-      } else {
+      } 
+      else if(_breakdown == 2) {
+          THStackAxisFonts (hstack, "y", "S/(S+B) weighted events / bin");
+          hstack->GetHistogram ()->LabelsOption ("v");
+          if (_units.Sizeof () != 1) {
+           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));           
+          }
+      } 
+      else {
           THStackAxisFonts (hstack, "x", TString::Format ("%s [%s]",_xLabel.Data (),_units.Data ()));
           if (_units.Sizeof () == 1) {
               THStackAxisFonts (hstack, "x", _xLabel.Data ());
@@ -607,7 +615,7 @@ void SetColorsAndLabels ()
         
         void setUnits (const TString &s) { _units = s; std::cout << " UNITS = " << s << std::endl;}
         
-        void setBreakdown (const bool &b = true) { _breakdown = b; }
+        void setBreakdown (const int &d = 0) { _breakdown = d; }
 
         void setLumiLabel (const std::string &s) {
             _lumiLabel = new TLatex (0.95, 0.93, TString (s));
@@ -646,7 +654,7 @@ void SetColorsAndLabels ()
         TString  _units;         //PG units of the x axis
         TLatex * _lumiLabel;     //PG label with the centre of mass energy and lumi info
         TLatex * _extraLabel;    //PG any additional labels to be put in the plot
-        bool     _breakdown;     //PG 
+        int      _breakdown;     //PG 
         int      _mass;          //PG higgs mass
         int      _signalZoom;    //PG signal scale factor for plotting and legenda writing
         TString * _sampleLabel ; //PG list of labels for the samples
