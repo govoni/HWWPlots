@@ -2,16 +2,16 @@
 
 root -q -b HWWPlots/finalPlot.C+'(0,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/hww_mll_0j.root","wwpresel_0j_mh125_massll",0,125,24.4,0,1,3)';                                            # fig 1 left
 root -q -b HWWPlots/finalPlot.C+'(0,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/hww_mll_1j.root","wwpresel_1j_mh125_massll",0,125,24.4,0,1,4)';                                            # fig 1 right
-root -q -b HWWPlots/finalPlot.C+'(5,1,"#Delta#eta_{jj}","","rootFiles/detajj-WW-2j.root","detajj",0,125,19.4,0,100,5)';                             # fig 2 left
+root -q -b HWWPlots/finalPlot.C+'(5,1,"|#Delta#eta_{jj}|","","rootFiles/detajj-WW-2j.root","detajj",0,125,19.4,0,100,5)';                             # fig 2 left
 root -q -b HWWPlots/finalPlot.C+'(5,1,"m_{jj}","GeV","rootFiles/mjj-WW-2j.root","mjj",0,125,19.4,0,100,5)';                                              # fig 2 right
 root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mT.root",  "st_mT", 0,125, 24.4,0,1,6)';            # fig 7 left
 root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mll.root", "st_mll",0,125, 24.4,0,1,6)';            # fig 8 left
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR1_mll_0j.root", "mll_CR1", 0,125,19.4,0,1,3)';                            # fig 10 top right
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR2_mll_0j.root", "mll_CR2", 0,125,19.4,0,1,3)';                            # fig 10 bottom right
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR1_mT_0j.root",  "mT_CR1",  0,125,19.4,0,1,3)';                            # fig 10 top left
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR2_mT_0j.root",  "mT_CR2",  0,125,19.4,0,1,3)';                            # fig 10 bottom left
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_SS_mll_0j.root", "SS_mll_0j",0,125, 24.4,0,1,3)';                      # fig 11 left
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_Top_mt_1j.root", "Top_mt_1j",0,125, 24.4,0,1,4)';                      # fig 11 right
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR1_mll_0j.root", "mll_CR1", 0,125,19.4,0,1,13)';                            # fig 10 top right
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR2_mll_0j.root", "mll_CR2", 0,125,19.4,0,1,14)';                            # fig 10 bottom right
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR1_mT_0j.root",  "mT_CR1",  0,125,19.4,0,1,13)';                            # fig 10 top left
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR2_mT_0j.root",  "mT_CR2",  0,125,19.4,0,1,14)';                            # fig 10 bottom left
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_SS_mll_0j.root", "SS_mll_0j",0,125, 24.4,0,1,15)';                      # fig 11 left
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_Top_mt_1j.root", "Top_mt_1j",0,125, 24.4,0,1,16)';                      # fig 11 right
 root -q -b HWWPlots/finalPlot.C+'(6,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/mll-VBF-2011.root","Mll_prefit_zoom_7TeV",0,125,4.9,0,1,7)';                                      # fig 12 left
 root -q -b HWWPlots/finalPlot.C+'(6,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/mll-VBF-2012.root","Mll_prefit_zoom_8TeV",0,125,19.4,0,1,7)';                                     # fig 12 right
 root -q -b HWWPlots/finalPlot.C+'(7,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/mll-VH-2012.root","histo_mll_aftershapecuts_osof_8tev",0,125,19.4,0,1,8)';                                            # fig 14
@@ -19,10 +19,10 @@ root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_t
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_of_0j.root",   "topcontrol_mll_of_0j",  0,125,19.4,0,1,9)'; # fig 33 left
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_of_1j.root",    "topcontrol_mT_of_1j",   0,125,19.4,0,1,10)'; # fig 34 right
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_of_1j.root",   "topcontrol_mll_of_1j",  0,125,19.4,0,1,10)'; # fig 34 left
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_incl_2j.root",  "topcontrol_mT_incl_2j", 0,125,19.4,0,1,5)'; # fig 35 right
-root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_incl_2j.root", "topcontrol_mll_incl_2j",0,125,19.4,0,1,5)'; # fig 35 left
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",   "GeV","rootFiles/plotrootfile_topcontrol_mT_incl_2j.root",  "topcontrol_mT_incl_2j", 0,125,19.4,0,1,17)'; # fig 35 right
+root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/plotrootfile_topcontrol_mll_incl_2j.root", "topcontrol_mll_incl_2j",0,125,19.4,0,1,17)'; # fig 35 left
 
-root -q -b HWWPlots/finalPlot.C+'(2,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/histo_wg3l_mll_all_new.root", "wg3l_mll",0,999,24.4,0,1,11)'; # fig 30
+root -q -b HWWPlots/finalPlot.C+'(3,1,"m_{#font[12]{l}#font[12]{l}}",  "GeV","rootFiles/histo_wg3l_mll_all_new.root", "wg3l_mll",0,999,24.4,0,1,11)'; # fig 30
 
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_ossf_7tev_new.root","histo_drmin_afterallothercuts_ossf_7tev",1,125,4.9,0,1,1)'; # fig 16
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_sssf_7tev_new.root","histo_drmin_afterallothercuts_sssf_7tev",1,125,4.9,0,1,2)'; # fig 16

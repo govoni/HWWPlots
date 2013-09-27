@@ -232,7 +232,7 @@ void SetColorsAndLabels ()
     _sampleLabel[iEM     ] = " WW+top+W+jets" ;
     _sampleLabel[iZGamma ] = " Z+#gamma"      ;
     _sampleLabel[iFakes  ] = " fakes"         ;
-    _sampleLabel[iWgammaS] = " W+#gamma^{*}" ;
+    _sampleLabel[iWgammaS] = " W+#gamma^{(*)}";
 
     return ;
   
