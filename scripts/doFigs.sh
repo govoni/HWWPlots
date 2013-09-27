@@ -29,8 +29,8 @@ root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_ossf_8tev_new.root","histo_drmin_afterallothercuts_ossf_8tev",1,125,19.4,0,1,1)'; # fig 16
 root -q -b HWWPlots/finalPlot.C+'(2,8,"\\Delta R_{#font[12]{l}^{+}#font[12]{l}^{-}}","","rootFiles/histo_drmin_afterallothercuts_sssf_8tev_new.root","histo_drmin_afterallothercuts_sssf_8tev",1,125,19.4,0,1,2)'; # fig 16
 
-root -q -b HWWPlots/finalPlot.C+'(8,1,"Reconstructed mass","GeV","rootFiles/ZH_histos_7TeV.root","histo_mh_7tev",0,125,4.9,0,10,12)'; # fig 18
-root -q -b HWWPlots/finalPlot.C+'(8,1,"Reconstructed mass","GeV","rootFiles/ZH_histos_8TeV.root","histo_mh_8tev",0,125,19.4,0,10,12)'; # fig 18
+root -q -b HWWPlots/finalPlot.C+'(8,1,"m_{T}^{#font[12]{l}#nu 2j}","GeV","rootFiles/ZH_histos_7TeV.root","histo_mh_7tev",0,125,4.9,0,10,12)'; # fig 18
+root -q -b HWWPlots/finalPlot.C+'(8,1,"m_{T}^{#font[12]{l}#nu 2j}","GeV","rootFiles/ZH_histos_8TeV.root","histo_mh_8tev",0,125,19.4,0,10,12)'; # fig 18
 
 if [ $1 == 1 ]; then
 
