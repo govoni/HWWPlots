@@ -62,7 +62,7 @@ finalPlot (int nsel             = 0,
   else if (labelType ==  9) myPlot.addLabel ("top-tagged, e#mu 0-jet");
   else if (labelType == 10) myPlot.addLabel ("top-tagged, e#mu 1-jet");
   else if (labelType == 11) myPlot.addLabel ("W+#gamma^{*} selection");
-  else if (labelType == 12) myPlot.addLabel ("3l#nu 2-jets");
+  else if (labelType == 12) myPlot.addLabel ("3l#nu + 2-jets");
   else if (labelType == 13) myPlot.addLabel ("CR1, e#mu 0-jet");
   else if (labelType == 14) myPlot.addLabel ("CR2, e#mu 0-jet");
   else if (labelType == 15) myPlot.addLabel ("same-sign, e#mu 0-jet");
