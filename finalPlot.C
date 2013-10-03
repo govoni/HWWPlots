@@ -51,23 +51,23 @@ finalPlot (int nsel             = 0,
   else if (lumi ==   24.4) myPlot.setLumiLabel ("4.9 fb^{-1} (7 TeV) + 19.4 fb^{-1} (8 TeV)"); 
   else                     myPlot.setLumiLabel (""); 
 
-  if      (labelType ==  1) myPlot.addLabel ("#font[12]{3l3#nu} OSSF");
-  else if (labelType ==  2) myPlot.addLabel ("#font[12]{3l3#nu} SSSF");
-  else if (labelType ==  3) myPlot.addLabel ("#font[12]{e#mu} 0-jet");
-  else if (labelType ==  4) myPlot.addLabel ("#font[12]{e#mu} 1-jet");
-  else if (labelType ==  5) myPlot.addLabel ("#font[12]{2l} 2-jets");
-  else if (labelType ==  6) myPlot.addLabel ("#font[12]{e#mu} 0/1-jet");
-  else if (labelType ==  7) myPlot.addLabel ("#font[12]{e#mu} 2-jets VBF tag");
-  else if (labelType ==  8) myPlot.addLabel ("#font[12]{e#mu} 2-jets VH tag");
-  else if (labelType ==  9) myPlot.addLabel ("top-tagged, #font[12]{e#mu} 0-jet");
-  else if (labelType == 10) myPlot.addLabel ("top-tagged, #font[12]{e#mu} 1-jet");
-  else if (labelType == 11) myPlot.addLabel ("#font[12]{W^{+}#gamma^{*}} #rightarrow #font[12]{l}^{+/-}#mu^{+/-}#mu^{-/+} selection");
-  else if (labelType == 12) myPlot.addLabel ("#font[12]{3l#nu} + 2-jets");
-  else if (labelType == 13) myPlot.addLabel ("CR1, #font[12]{e#mu} 0-jet");
-  else if (labelType == 14) myPlot.addLabel ("CR2, #font[12]{e#mu} 0-jet");
-  else if (labelType == 15) myPlot.addLabel ("same-sign, #font[12]{e#mu} 0-jet");
-  else if (labelType == 16) myPlot.addLabel ("top-tagged, #font[12]{e#mu} 1-jet");
-  else if (labelType == 17) myPlot.addLabel ("#splitline{top-tagged, #font[12]{e#mu} + 2-jets}{VBF tag}");
+  if      (labelType ==  1) myPlot.addLabel ("3l3#nu OSSF");
+  else if (labelType ==  2) myPlot.addLabel ("3l3#nu SSSF");
+  else if (labelType ==  3) myPlot.addLabel ("e#mu 0-jet");
+  else if (labelType ==  4) myPlot.addLabel ("e#mu 1-jet");
+  else if (labelType ==  5) myPlot.addLabel ("dilepton 2-jets");
+  else if (labelType ==  6) myPlot.addLabel ("e#mu 0/1-jet");
+  else if (labelType ==  7) myPlot.addLabel ("e#mu 2-jets VBF tag");
+  else if (labelType ==  8) myPlot.addLabel ("e#mu 2-jets VH tag");
+  else if (labelType ==  9) myPlot.addLabel ("top-tagged, e#mu 0-jet");
+  else if (labelType == 10) myPlot.addLabel ("top-tagged, e#mu 1-jet");
+  else if (labelType == 11) myPlot.addLabel ("W^{+}#gamma^{*} #rightarrow {l}^{+/-}#mu^{+/-}#mu^{-/+} selection");
+  else if (labelType == 12) myPlot.addLabel ("3l#nu + 2-jets");
+  else if (labelType == 13) myPlot.addLabel ("CR1, e#mu 0-jet");
+  else if (labelType == 14) myPlot.addLabel ("CR2, e#mu 0-jet");
+  else if (labelType == 15) myPlot.addLabel ("same-sign e#mu 0-jet");
+  else if (labelType == 16) myPlot.addLabel ("top-tagged, e#mu 1-jet");
+  else if (labelType == 17) myPlot.addLabel ("#splitline{top-tagged, e#mu + 2-jets}{VBF tag}");
 
   myPlot.setUnits(units);
   myPlot.SetColorsAndLabels () ;
@@ -173,7 +173,7 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH"));
     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
-    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
     myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
 //     myPlot.setIsHWWOverlaid(true);
 
@@ -206,7 +206,7 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
-    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
     myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
     myPlot._sampleLabel[iggH] = "H #rightarrow WW";
     myPlot.setBreakdown(1);
@@ -244,7 +244,7 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
 //     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
-    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
     myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
     myPlot._sampleLabel[iggH] = "H #rightarrow WW";
     myPlot.setBreakdown(1);
@@ -296,7 +296,7 @@ finalPlot (int nsel             = 0,
     myPlot.setIsHWWOverlaid(true);
     
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
     myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
 
   }
@@ -318,7 +318,7 @@ finalPlot (int nsel             = 0,
     myPlot.setBreakdown(2);
 
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = "W+#gamma^{(*)}";
+    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
     myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
   }
 

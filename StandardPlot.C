@@ -221,18 +221,18 @@ void SetColorsAndLabels ()
         _sampleLabel[iVH   ] = higgsLabel ;
       }
 
-    _sampleLabel[iWW     ] = " WW"            ;
-    _sampleLabel[iZJets  ] = " DY+jets"       ;
-    _sampleLabel[iTop    ] = " top"           ;
-    _sampleLabel[iVV     ] = " WZ+ZZ+VVV"     ;
-    _sampleLabel[iWJets  ] = " W+jets"        ;
-    _sampleLabel[iWZ     ] = " WZ"            ;
-    _sampleLabel[iZZ     ] = " ZZ"            ;
-    _sampleLabel[iVVV    ] = " VVV"           ;
-    _sampleLabel[iEM     ] = " WW+top+W+jets" ;
-    _sampleLabel[iZGamma ] = " Z+#gamma"      ;
-    _sampleLabel[iFakes  ] = " fakes"         ;
-    _sampleLabel[iWgammaS] = " W+#gamma^{(*)}";
+    _sampleLabel[iWW     ] = " WW"           ;
+    _sampleLabel[iZJets  ] = " DY+jets"      ;
+    _sampleLabel[iTop    ] = " top"          ;
+    _sampleLabel[iVV     ] = " WZ+ZZ+VVV"    ;
+    _sampleLabel[iWJets  ] = " W+jets"       ;
+    _sampleLabel[iWZ     ] = " WZ"           ;
+    _sampleLabel[iZZ     ] = " ZZ"           ;
+    _sampleLabel[iVVV    ] = " VVV"          ;
+    _sampleLabel[iEM     ] = " WW+top+W+jets";
+    _sampleLabel[iZGamma ] = " Z#gamma"      ;
+    _sampleLabel[iFakes  ] = " fakes"        ;
+    _sampleLabel[iWgammaS] = " W#gamma^{(*)}";
 
     return ;
   
