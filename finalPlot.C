@@ -154,6 +154,7 @@ finalPlot (int nsel             = 0,
     if (hqqH != 0) hHWW->Add (hqqH) ;
     if (hVH != 0)  hHWW->Add (hVH) ;
     if (hHWW ->GetSumOfWeights() > 0)  myPlot.setMCHist (iVH, (TH1F*) hHWW->Clone("hVH")) ;
+    myPlot.setIsHWWOverlaid(true);
   }
   else if (nsel == 4) {
     myPlot.setMCHist(iZJets, (TH1F*)hWW   ->Clone("hWW"));
