@@ -231,7 +231,7 @@ void SetColorsAndLabels ()
     _sampleLabel[iVVV    ] = " VVV"          ;
     _sampleLabel[iEM     ] = " WW+top+W+jets";
     _sampleLabel[iZGamma ] = " Z#gamma"      ;
-    _sampleLabel[iFakes  ] = " fakes"        ;
+    _sampleLabel[iFakes  ] = " non-prompt"        ;
     _sampleLabel[iWgammaS] = " W#gamma^{(*)}";
 
     return ;
