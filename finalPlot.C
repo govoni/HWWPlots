@@ -57,8 +57,8 @@ finalPlot (int nsel             = 0,
   else if (labelType ==  4) myPlot.addLabel ("e#mu 1-jet");
   else if (labelType ==  5) myPlot.addLabel ("dilepton 2-jets");
   else if (labelType ==  6) myPlot.addLabel ("e#mu 0/1-jet");
-  else if (labelType ==  7) myPlot.addLabel ("e#mu 2-jets VBF tag");
-  else if (labelType ==  8) myPlot.addLabel ("e#mu 2-jets VH tag");
+  else if (labelType ==  7) myPlot.addLabel ("e#mu 2-jets, VBF tag");
+  else if (labelType ==  8) myPlot.addLabel ("e#mu 2-jets, VH tag");
   else if (labelType ==  9) myPlot.addLabel ("top-tagged, e#mu 0-jet");
   else if (labelType == 10) myPlot.addLabel ("top-tagged, e#mu 1-jet");
   else if (labelType == 11) myPlot.addLabel ("W^{+}#gamma^{*} #rightarrow {l}^{+/-}#mu^{+/-}#mu^{-/+} selection");

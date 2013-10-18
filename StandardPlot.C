@@ -206,8 +206,13 @@ void SetColorsAndLabels ()
         _sampleLabel[iVBF    ] = higgsLabel ;
         higgsLabel.Form ("%d x ggH",_signalZoom);
         _sampleLabel[iggH    ] = higgsLabel ;
-        higgsLabel.Form ("%d x VH",_signalZoom);
-        _sampleLabel[iVH     ] = higgsLabel ;
+        if(_signalZoom != 10){ // ugly! 
+	  higgsLabel.Form ("%d x VH",_signalZoom);
+          _sampleLabel[iVH     ] = higgsLabel ;
+        } else {
+	  higgsLabel.Form ("%d x ZH",_signalZoom);
+          _sampleLabel[iVH     ] = higgsLabel ;
+        }
       }
     else                 
       {
