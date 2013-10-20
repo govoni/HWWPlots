@@ -67,7 +67,7 @@ finalPlot (int nsel             = 0,
   else if (labelType == 14) myPlot.addLabel ("CR2, e#mu 0-jet");
   else if (labelType == 15) myPlot.addLabel ("same-sign e#mu 0-jet");
   else if (labelType == 16) myPlot.addLabel ("top-tagged, e#mu 1-jet");
-  else if (labelType == 17) myPlot.addLabel ("#splitline{top-tagged, e#mu + 2-jets}{VBF tag}");
+  else if (labelType == 17) myPlot.addLabel ("#splitline{top-tagged}{dilepton + 2-jets}");
 
   myPlot.setUnits(units);
   myPlot.SetColorsAndLabels () ;
