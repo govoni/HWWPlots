@@ -295,6 +295,7 @@ finalPlot (int nsel             = 0,
     if (hVH != 0)  hHWW->Add (hVH) ;
     myPlot.setMCHist (iHWW, (TH1F*) hHWW->Clone ("hHWW")) ;
     myPlot.setIsHWWOverlaid(true);
+    myPlot.setBreakdown(1);
     
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
     myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
