@@ -4,8 +4,10 @@ root -q -b HWWPlots/finalPlot.C+'(0,1,"m_{#font[12]{l}#font[12]{l}}","GeV","root
 root -q -b HWWPlots/finalPlot.C+'(0,1,"m_{#font[12]{l}#font[12]{l}}","GeV","rootFiles/hww_mll_1j.root","wwpresel_1j_mh125_massll",0,125,24.4,0,1,4)';                                            # fig 1 right
 root -q -b HWWPlots/finalPlot.C+'(5,1,"|#Delta#eta_{jj}|","","rootFiles/detajj-WW-2j.root","detajj",0,125,19.4,0,100,5)';                             # fig 2 left
 root -q -b HWWPlots/finalPlot.C+'(5,1,"m_{jj}","GeV","rootFiles/mjj-WW-2j.root","mjj",0,125,19.4,0,100,5)';                                              # fig 2 right
-root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mT.root",  "st_mT", 0,125, 24.4,0,1,6)';            # fig 7 left
-root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mll.root", "st_mll",0,125, 24.4,0,1,6)';            # fig 8 left
+root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mT_1dweight.root",  "st_mT_1dweight", 0,125, 24.4,0,1,6)';            # fig 7 left
+root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mll_1dweight.root", "st_mll_1dweight",0,125, 24.4,0,1,6)';            # fig 8 left
+root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{T}",  "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mT.root",  "st_mT", 0,125, 24.4,0,1,6)';            # fig 7 left (old)
+root -q -b HWWPlots/finalPlot.C+'(10,1,"m_{#font[12]{l}#font[12]{l}}", "GeV", "rootFiles/plotrootfile_stackdataminusbkg_mll.root", "st_mll",0,125, 24.4,0,1,6)';            # fig 8 left (old)
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR1_mll_0j.root", "mll_CR1", 0,125,19.4,0,1,13)';                            # fig 10 top right
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{#font[12]{l}#font[12]{l}}", "GeV","rootFiles/plotrootfile_CR2_mll_0j.root", "mll_CR2", 0,125,19.4,0,1,14)';                            # fig 10 bottom right
 root -q -b HWWPlots/finalPlot.C+'(9,1,"m_{T}",  "GeV","rootFiles/plotrootfile_CR1_mT_0j.root",  "mT_CR1",  0,125,19.4,0,1,13)';                            # fig 10 top left
@@ -40,6 +42,8 @@ if [ $1 == 1 ]; then
   mv plots/wwpresel_1j_mh125_massll.pdf                  $MAINDIR/wwlevel/wwpresel_1j_mh125_massll.pdf;
   mv plots/detajj.pdf                                    $MAINDIR/wwlevel/detajj.pdf;
   mv plots/mjj.pdf                                       $MAINDIR/wwlevel/mjj.pdf;
+  mv plots/st_mT_1dweight.pdf                            $MAINDIR/hww01j/st_mT_1dweight.pdf;
+  mv plots/st_mll_1dweight.pdf                           $MAINDIR/hww01j/st_mll_1dweight.pdf;
   mv plots/st_mT.pdf                                     $MAINDIR/hww01j/st_mT.pdf;
   mv plots/st_mll.pdf                                    $MAINDIR/hww01j/st_mll.pdf;
   mv plots/mT_CR1.pdf                                    $MAINDIR/hww01j/mT_CR1.pdf;
