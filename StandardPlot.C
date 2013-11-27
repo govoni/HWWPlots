@@ -200,29 +200,29 @@ void SetColorsAndLabels ()
     TString higgsLabel ;
     if (_signalZoom > 1) 
       {
-        higgsLabel.Form ("%d x H #rightarrow WW",_signalZoom);
+        higgsLabel.Form (" %d x H #rightarrow WW",_signalZoom);
         _sampleLabel[iHWW    ] = higgsLabel ;
-        higgsLabel.Form ("%d x VBF",_signalZoom);
+        higgsLabel.Form (" %d x VBF",_signalZoom);
         _sampleLabel[iVBF    ] = higgsLabel ;
-        higgsLabel.Form ("%d x ggH",_signalZoom);
+        higgsLabel.Form (" %d x ggH",_signalZoom);
         _sampleLabel[iggH    ] = higgsLabel ;
         if(_signalZoom != 10){ // ugly! 
-	  higgsLabel.Form ("%d x VH",_signalZoom);
+	  higgsLabel.Form (" %d x VH",_signalZoom);
           _sampleLabel[iVH     ] = higgsLabel ;
         } else {
-	  higgsLabel.Form ("%d x ZH",_signalZoom);
+	  higgsLabel.Form (" %d x ZH",_signalZoom);
           _sampleLabel[iVH     ] = higgsLabel ;
         }
       }
     else                 
       {
-        higgsLabel.Form ("H #rightarrow WW");
+        higgsLabel.Form (" H #rightarrow WW");
         _sampleLabel[iHWW  ] = higgsLabel ;
-        higgsLabel.Form ("VBF");
+        higgsLabel.Form (" VBF");
         _sampleLabel[iVBF  ] = higgsLabel ;
-        higgsLabel.Form ("ggH");
+        higgsLabel.Form (" ggH");
         _sampleLabel[iggH  ] = higgsLabel ;
-        higgsLabel.Form ("VH");
+        higgsLabel.Form (" VH");
         _sampleLabel[iVH   ] = higgsLabel ;
       }
 
