@@ -207,9 +207,9 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iWgamma,(TH1F*) hVg   ->Clone ("hVg"));
     myPlot.setMCHist (iTop,   (TH1F*) hTop  ->Clone("hTop"));
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
-    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
-    myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
-    myPlot._sampleLabel[iggH] = "H #rightarrow WW";
+    myPlot._sampleLabel[iWgamma] = " W#gamma^{(*)}";
+    myPlot._sampleLabel[iVV] = " WZ+ZZ+VVV";
+    myPlot._sampleLabel[iggH] = " H #rightarrow WW";
     myPlot.setBreakdown(1);
     myPlot.setIsHWWOverlaid(true);
   
@@ -245,9 +245,9 @@ finalPlot (int nsel             = 0,
     myPlot.setMCHist (iggH,   (TH1F*) hggH  ->Clone ("hggH")); //---- ggH + VBF fused into "ggH" --> "HWW"
 //     myPlot.setMCHist (iVBF,   (TH1F*) hqqH  ->Clone ("hVBF"));
 //     myPlot.setMCHist (iVH,    (TH1F*) hVH   ->Clone ("hVH"));
-    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
-    myPlot._sampleLabel[iVV] = "WZ+ZZ+VVV";
-    myPlot._sampleLabel[iggH] = "H #rightarrow WW";
+    myPlot._sampleLabel[iWgamma] = " W#gamma^{(*)}";
+    myPlot._sampleLabel[iVV] = " WZ+ZZ+VVV";
+    myPlot._sampleLabel[iggH] = " H #rightarrow WW";
     myPlot.setBreakdown(1);
     myPlot.setIsHWWOverlaid(true);
     
@@ -298,8 +298,8 @@ finalPlot (int nsel             = 0,
     myPlot.setBreakdown(1);
     
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
-    myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
+    myPlot._sampleLabel[iWgamma] = " W#gamma^{(*)}";
+    myPlot._sampleLabel[iHWW] = " H #rightarrow WW";
 
   }
   else if(nsel == 10) { // main analysis with input error band(error), no signal component
@@ -320,8 +320,8 @@ finalPlot (int nsel             = 0,
     myPlot.setBreakdown(2);
 
     myPlot.set_ErrorBand(*((TGraphAsymmErrors*) file->Get("error")));
-    myPlot._sampleLabel[iWgamma] = "W#gamma^{(*)}";
-    myPlot._sampleLabel[iHWW] = "H #rightarrow WW";
+    myPlot._sampleLabel[iWgamma] = " W#gamma^{(*)}";
+    myPlot._sampleLabel[iHWW] = " H #rightarrow WW";
   }
 
   //PG get the data histogram
