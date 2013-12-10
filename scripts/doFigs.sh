@@ -38,6 +38,8 @@ if [ $1 == 1 ]; then
 
   export MAINDIR=/home/ceballos/tex/PAS/papers/HIG-13-023/trunk/figures;
 
+  scp plots/*                                            lxplus5:public/limits/plots_twiki/.;
+
   mv plots/wwpresel_0j_mh125_massll.pdf                  $MAINDIR/wwlevel/wwpresel_0j_mh125_massll.pdf;
   mv plots/wwpresel_1j_mh125_massll.pdf                  $MAINDIR/wwlevel/wwpresel_1j_mh125_massll.pdf;
   mv plots/detajj.pdf                                    $MAINDIR/wwlevel/detajj.pdf;
@@ -68,4 +70,6 @@ if [ $1 == 1 ]; then
   mv plots/topcontrol_mll_incl_2j.pdf                    $MAINDIR/control/topcontrol_mll_incl_2j.pdf;
   mv plots/topcontrol_mT_incl_2j.pdf                     $MAINDIR/control/topcontrol_mT_incl_2j.pdf;
   mv plots/wg3l_mll.pdf                                  $MAINDIR/control/wg3l_mll.pdf;
+
+  rm -f plots/*;
 fi
